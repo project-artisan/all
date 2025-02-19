@@ -29,7 +29,7 @@ const menuItems = [
       icon: <FileText className="h-5 w-5" />,
       submenu: [
         { title: '기술 블로그', path: '/blogs/tech', icon: <Folder className="h-4 w-4" /> },
-        { title: '개발 블로그', path: '/blogs/dev', icon: <Folder className="h-4 w-4" /> },
+        { title: '기술 블로그 회사 목록', path: '/blogs/companies', icon: <Folder className="h-4 w-4" /> },
         { title: '북마크', path: '/blogs/bookmarks', icon: <BookOpen className="h-4 w-4" /> }
       ]
     },
@@ -50,8 +50,6 @@ export const Sidebar = () => {
   const [showText, setShowText] = useState(true)
   const [expandedMenus, setExpandedMenus] = useState<string[]>([])
   const panelRef = useRef<HTMLDivElement>(null)
-
-  
 
   // 로그인 메뉴는 별도로 관리
   const authMenuItem = {

@@ -9,6 +9,7 @@ import React from 'react'
 // Lazy loading for pages
 const Dashboard = React.lazy(() => import('@/pages/Dashboard'))
 const TechBlog = React.lazy(() => import('@/pages/blogs/TechBlog'))
+const Companies = React.lazy(() => import('@/pages/blogs/Companies'))
 const FrontendInterview = React.lazy(() => import('@/pages/interview/Frontend'))
 const Settings = React.lazy(() => import('@/pages/Settings'))
 const LoginPage = React.lazy(() => import('@/pages/auth/Login'))
@@ -27,6 +28,7 @@ export default function AppRoutes() {
       children: [
         { index: true, element: <Dashboard /> },
         { path: '/blogs/tech', element: <TechBlog /> },
+        { path: '/blogs/companies', element: <Companies /> },
         { path: '/interview/frontend', element: <FrontendInterview /> },
         { path: '/settings', element: <Settings /> }
       ]
