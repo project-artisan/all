@@ -1,15 +1,23 @@
 import React from 'react';
 
+import { Sidebar } from "./sidebar"
 import ThemeToggle from './ui/theme-toggle';
 
 export default function Navbar() {
   return (
-    <header className='flex h-16 w-full items-center justify-between border-b border-border px-5'>
-      <span className='text-lg font-black'>Template</span>
-
-      <div className='pr-20'>
-        <ThemeToggle />
+    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 shrink-0">
+      <div className="container flex h-14 items-center">
+        <div className="mr-4 flex">
+          <a className="mr-6 flex items-center space-x-2" href="/">
+            <span className="font-bold sm:inline-block">
+              Tech Blog Reader
+            </span>
+          </a>
+        </div>
+        <div className="flex flex-1 items-center justify-end space-x-4">
+          <ThemeToggle/>
+        </div>
       </div>
     </header>
-  );
+  )
 }
