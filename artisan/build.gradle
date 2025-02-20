@@ -1,14 +1,15 @@
 
 plugins {
     id 'java'
+    // api 의존성 사용을 위해
+    id 'java-library'
     id 'org.springframework.boot' version '3.4.2'
     id 'io.spring.dependency-management' version '1.1.7'
 }
 
 allprojects {
 
-
-    apply plugin: 'java'
+    apply plugin: 'java-library'
     group = 'artisan'
     version = '0.0.1'
 
