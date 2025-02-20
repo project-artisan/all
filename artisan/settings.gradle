@@ -9,4 +9,5 @@ include 'artisan-core'
 
 include 'artisan-domain:artisan-core-domain'
 include 'artisan-domain:artisan-drrr-domain'
+include 'artisan-infra:artisan-docs'
 
