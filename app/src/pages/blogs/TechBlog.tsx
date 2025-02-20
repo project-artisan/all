@@ -33,8 +33,8 @@ export default function TechBlog() {
   const [hasMore, setHasMore] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [sortOption, setSortOption] = useState<SortOption>('latest');
-  const searchTimeoutRef = useRef<NodeJS.Timeout>();
-  const observer = useRef<IntersectionObserver>();
+  const searchTimeoutRef = useRef<NodeJS.Timeout>(null);
+  const observer = useRef<IntersectionObserver>(null);
   
   // 검색어 변경 시 페이지 초기화 (디바운스 처리)
   const handleSearch = (value: string) => {

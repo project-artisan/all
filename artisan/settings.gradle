@@ -1,0 +1,3 @@
+rootProject.name = 'artisan'
+
+include 'artisan-drrr-api'

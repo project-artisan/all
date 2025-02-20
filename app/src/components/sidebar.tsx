@@ -3,7 +3,6 @@ import { Link } from "react-router-dom"
 import { Button } from "./ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet"
 import { ScrollArea } from "./ui/scroll-area"
-import { ResizablePanel, ResizableHandle } from "./ui/resizable"
 import { 
   ChevronDown,
   Menu, 
@@ -15,9 +14,11 @@ import {
   Folder,
   BookOpen,
   Tag,
-  LogIn
+  LogIn,
+  PlayCircle
 } from "lucide-react"
 import ThemeToggle from "./ui/theme-toggle"
+import { interviewCategories } from "@/types/interview"
 const menuItems = [
     { 
       title: '대시보드', 
@@ -37,9 +38,13 @@ const menuItems = [
       title: '면접 연습',
       icon: <Tag className="h-5 w-5" />,
       submenu: [
-        { title: '프론트엔드', path: '/category/frontend' },
-        { title: '백엔드', path: '/category/backend' },
-        { title: '데브옵스', path: '/category/devops' }
+        { title: '전체 보기', path: '/interview', icon: <BookOpen className="h-4 w-4" /> },
+        { title: '진행중인 면접', path: '/interview/ongoing', icon: <PlayCircle className="h-4 w-4" /> },
+        ...interviewCategories.map(category => ({
+          title: category.title,
+          path: `/interview/${category.id}`
+        })),
+        { title: '면접 결과', path: '/interview/results', icon: <ChevronDown className="h-4 w-4" /> }
       ]
     },
     { title: '설정', path: '/settings', icon: <Settings className="h-5 w-5" /> }
@@ -124,13 +129,11 @@ export const Sidebar = () => {
         {showText && <h2 className="text-lg font-semibold">메뉴</h2>}
       </div>
       
-      <ScrollArea className="flex-1">
-        <nav className="space-y-1 px-2">
-          {menuItems.map((item) => (
-            <MenuItem key={item.path || item.title} item={item} />
-          ))}
-        </nav>
-      </ScrollArea>
+      <nav className="space-y-1 px-2 flex-1">
+        {menuItems.map((item) => (
+          <MenuItem key={item.path || item.title} item={item} />
+        ))}
+      </nav>
 
       {/* 로그인 메뉴 - 하단 고정 */}
       <div className="border-t p-2">
@@ -163,15 +166,19 @@ export const Sidebar = () => {
             <Menu className="h-6 w-6" />
           </Button>
         </SheetTrigger>
-        <SheetContent side="left" className="w-64 p-0">
-          <SidebarContent />
+        <SheetContent className="w-64 p-0 h-full flex flex-col" side="left">
+          <ScrollArea className="flex-1">
+            <SidebarContent />
+          </ScrollArea>
         </SheetContent>
       </Sheet>
 
       {/* 데스크톱 사이드바 */}
       <div className="hidden lg:block">
-          <div className="h-full border-r bg-background">
-            <SidebarContent />
+          <div className="h-full border-r bg-background flex flex-col">
+            <ScrollArea className="flex-1">
+              <SidebarContent />
+            </ScrollArea>
           </div>
       </div>
     </>
