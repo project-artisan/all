@@ -1,0 +1,5 @@
+
+dependencies {
+    implementation project(":artisan-core")
+    implementation project(":artisan-domain:artisan-core-domain")
+}
