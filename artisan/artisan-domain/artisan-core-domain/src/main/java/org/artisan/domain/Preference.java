@@ -19,10 +19,6 @@ import org.artisan.core.domain.BaseEntity;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Preference extends BaseEntity  {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     private Long memberId;
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -27,7 +27,7 @@ public interface TechBlogRepository extends JpaRepository<TechBlogPost, Long> {
     Slice<TechBlogPost> findAllByOrderByWrittenAtDesc(Pageable pageable);
 
 
-    Slice<TechBlogPost> findByCodeOOrderByWrittenAt(TechBlogCode code);
+    Slice<TechBlogPost> findByCodeOrderByWrittenAt(TechBlogCode code);
 
     @Query("""
                 select new org.artisan.domain.CategoryCount(category.id, category.name, count(category.id) )

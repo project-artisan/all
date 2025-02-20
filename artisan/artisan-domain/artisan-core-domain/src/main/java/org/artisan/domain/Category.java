@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 import org.artisan.core.domain.BaseEntity;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
-@Entity
 @Getter
+@Entity
 @NoArgsConstructor
 @Table(name = "categories")
 public class Category extends BaseEntity {
