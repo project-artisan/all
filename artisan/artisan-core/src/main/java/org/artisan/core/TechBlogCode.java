@@ -50,7 +50,11 @@ public enum TechBlogCode {
     }
 
     public static TechBlogCode from(Long id) {
-        return cache.get(id);
+        var blog = cache.get(id);
+        if(blog == null) {
+            throw new CoreException("존재하지 않는 기술블로그입니다.");
+        }
+        return blog;
     }
 
     public static Collection<TechBlogCode> getAll() {

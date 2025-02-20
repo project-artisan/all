@@ -7,6 +7,6 @@ public enum OAuth2State {
     GITHUB("github"),
 
     ;
-    private final String value;
 
+    private final String value;
 }
