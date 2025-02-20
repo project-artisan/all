@@ -26,8 +26,8 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class JwtProvider {
     private static final String issuer = "MUBAEGSEU";
-    private static final Long accessTokenExpiry = 24 * 60 * 60L; // 1일
-    private static final Long refreshTokenExpiry = 7 * 24 * 60 * 60L; // 1주
+    public static final int accessTokenExpiry = 24 * 60 * 60; // 1일
+    public static final int refreshTokenExpiry = 7 * 24 * 60 * 60; // 1주
     private static final String TOKEN_PREFIX = "Bearer ";
     private static final String HEADER_AUTHORIZATION = "Authorization";
 
