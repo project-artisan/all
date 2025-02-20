@@ -1,3 +1,5 @@
 rootProject.name = 'artisan'
 
 include 'artisan-drrr-api'
+include 'artisan-drrr-api'
+

@@ -22,7 +22,6 @@ allprojects {
     repositories { mavenCentral()}
     bootJar {enabled = false}
     jar {enabled = false}
-    java {languageVersion = JavaLanguageVersion.of(23)}
 
 
     tasks.named('test') {
