@@ -52,7 +52,8 @@ public class SigninArgumentResolver implements HandlerMethodArgumentResolver {
                     var memberId = jwtProvider.decodeAccessToken(jwtProvider.extractToken(httpServletRequest));
                     return Objects.equals(memberId, memberIdToRefreshToken);
                 })
-                .map(User::member) .orElseGet(User::guest);
+                .map(User::member)
+                .orElseGet(User::guest);
     }
     private Optional<Long> extractMemberId(Cookie... cookies) {
         try {

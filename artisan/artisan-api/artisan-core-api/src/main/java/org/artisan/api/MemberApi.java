@@ -2,6 +2,7 @@ package org.artisan.api;
 
 
 import lombok.RequiredArgsConstructor;
+import org.artisan.api.payload.response.MemberProfileResponse;
 import org.artisan.attributes.Auth;
 import org.artisan.attributes.MemberOnly;
 import org.artisan.core.User;
