@@ -1,0 +1,5 @@
+dependencies {
+    implementation project(":artisan-core")
+    api project(":artisan-domain:artisan-core-domain")
+    api 'org.springframework.boot:spring-boot-starter-web'
+}
