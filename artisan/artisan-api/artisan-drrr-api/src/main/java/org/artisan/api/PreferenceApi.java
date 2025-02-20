@@ -7,6 +7,9 @@ import org.artisan.core.User;
 import org.artisan.payload.PreferenceCategoriesResponse;
 import org.artisan.payload.PreferenceUpdateRequest;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,12 +19,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class PreferenceApi {
 
     @MemberOnly
+    @GetMapping
     public PreferenceCategoriesResponse find(@Auth User user) {
         return null;
     }
 
     @MemberOnly
-    public ResponseEntity<Void> update(@Auth User requester, PreferenceUpdateRequest request) {
+    @PutMapping()
+    public ResponseEntity<Void> update(
+            @Auth User requester,
+            @RequestBody PreferenceUpdateRequest request
+    ) {
 
         return ResponseEntity.noContent().build();
     }
