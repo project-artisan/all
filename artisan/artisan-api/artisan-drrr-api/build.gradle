@@ -1,4 +1,5 @@
 dependencies {
     implementation project(":artisan-api:artisan-core-api")
     implementation project(":artisan-domain:artisan-drrr-domain")
+    implementation project(":artisan-infra:artisan-docs")
 }
