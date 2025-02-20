@@ -3,4 +3,5 @@ dependencies {
     api project(":artisan-domain:artisan-core-domain")
     api 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.security:spring-security-oauth2-jose:6.2.4'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
 }
