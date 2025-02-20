@@ -6,5 +6,7 @@ include 'artisan-api:artisan-drrr-api'
 include 'artisan-api:artisan-api-core'
 include 'artisan-infra'
 include 'artisan-core'
+
 include 'artisan-domain'
+include 'artisan-domain:artisan-core-domain'
 
