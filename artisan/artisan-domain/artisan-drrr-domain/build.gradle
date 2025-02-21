@@ -1,5 +1,6 @@
 
 dependencies {
-    implementation project(":artisan-core")
+    implementation project(":artisan-core:artisan-core-web")
+    implementation project(":artisan-core:artisan-core-default")
     implementation project(":artisan-domain:artisan-core-domain")
 }
