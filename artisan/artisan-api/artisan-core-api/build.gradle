@@ -1,6 +1,7 @@
 dependencies {
     implementation project(":artisan-core:artisan-core-web")
     implementation project(":artisan-core:artisan-core-default")
+    implementation project(":artisan-infra:artisan-external-client")
 
     api project(":artisan-domain:artisan-core-domain")
     api 'org.springframework.boot:spring-boot-starter-web'
