@@ -18,6 +18,7 @@ import org.springframework.security.oauth2.jwt.JwtClaimsSet;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
+import org.springframework.security.oauth2.jwt.JwtException;
 import org.springframework.security.oauth2.jwt.JwtValidationException;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +26,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class JwtProvider {
-    private static final String issuer = "MUBAEGSEU";
+    private static final String ISSUER = "ARTISAN";
     public static final int accessTokenExpiry = 24 * 60 * 60; // 1일
     public static final int refreshTokenExpiry = 7 * 24 * 60 * 60; // 1주
     private static final String TOKEN_PREFIX = "Bearer ";
@@ -34,58 +35,81 @@ public class JwtProvider {
     private final JwtEncoder jwtEncoder;
     private final JwtDecoder jwtDecoder;
 
-    public String createAccessToken(final Long id, final Instant issuanceTime) {
+    public String createAccessToken(
+            AccessTokenClaims accessTokenClaims,
+            Instant issuanceTime
+    ) {
         final JwtClaimsSet claims = JwtClaimsSet.builder()
-                .issuer(issuer)
+                .issuer(ISSUER)
                 .issuedAt(issuanceTime)
                 .expiresAt(issuanceTime.plusSeconds(accessTokenExpiry))
-                .subject(String.valueOf(id))
-                .claim("id", id)
+                .subject("access_token")
+                .claims((map) -> map.put("member_id", accessTokenClaims.memberId()))
                 .build();
 
         return jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
     }
 
-    public String createRefreshToken(final Long id, final Instant issuanceTime) {
+    public String createRefreshToken(
+            RefreshTokenClaims refreshTokenClaims,
+            Instant issuanceTime
+    ) {
         final JwtClaimsSet claims = JwtClaimsSet.builder()
-                .issuer(issuer)
+                .issuer(ISSUER)
                 .issuedAt(issuanceTime)
                 .expiresAt(issuanceTime.plusSeconds(refreshTokenExpiry))
-                .subject(String.valueOf(id))
-                .claim("id", id)
+                .claims(map -> {
+                    map.put("member_id", refreshTokenClaims.memberId());
+                    map.put("token_id", refreshTokenClaims.tokenId());
+                })
+                .subject("refresh_token")
                 .build();
         return jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
     }
+
 
     private Map<String, Object> decode(final String token) {
         return jwtDecoder.decode(token).getClaims();
     }
 
-    public Long decodeAccessToken(final String accessToken) {
+    public AccessTokenClaims decodeAccessToken(final String accessToken) {
         try {
-            return Long.parseLong(String.valueOf(this.decode(accessToken).get("id")));
+
+            var claimsMap = this.decode(accessToken);
+
+            return new AccessTokenClaims(
+                    Long.parseLong(String.valueOf(claimsMap.get("member_id")))
+
+            );
         } catch (JwtValidationException exception) {
             throw new JwtExpiredException(EXPIRED_ACCESS_TOKEN);
-        } catch (Exception exception) {
+        } catch (JwtException exception) {
             throw new InvalidJwtException(INVALID_ACCESS_TOKEN);
         }
     }
 
-    public Long decodeRefreshToken(final String refreshToken) {
+    public RefreshTokenClaims decodeRefreshToken(final String refreshToken) {
         try {
-            return Long.parseLong(String.valueOf(this.decode(refreshToken).get("id")));
+            var jwt = jwtDecoder.decode(refreshToken);
+            var claimsMap = jwt.getClaims();
+
+            return new RefreshTokenClaims(
+                    Long.parseLong(String.valueOf(claimsMap.get("member_id"))),
+                    Long.parseLong(String.valueOf(claimsMap.get("token_id"))),
+                    jwt.getExpiresAt()
+            );
         } catch (JwtValidationException exception) {
             throw new JwtExpiredException(EXPIRED_REFRESH_TOKEN);
-        } catch (Exception exception) {
+        } catch (JwtException exception) {
+            log.error(exception.getMessage());
             throw new InvalidJwtException(INVALID_REFRESH_TOKEN);
         }
     }
 
     public String extractToken(final HttpServletRequest request) {
-        final String token = request.getHeader(HEADER_AUTHORIZATION);
+        final var token = request.getHeader(HEADER_AUTHORIZATION);
 
         return extractToken(token);
-
     }
 
     public String extractToken(final String headerValue) {
@@ -95,7 +119,24 @@ public class JwtProvider {
         return null;
     }
 
-    public void validRefreshToken(String refreshToken) {
-        decodeRefreshToken(refreshToken);
+    public record AccessTokenClaims(
+            Long memberId
+    ) {
+
+        public static AccessTokenClaims from(Long memberId){
+            return new AccessTokenClaims(memberId);
+        }
     }
+
+    public record RefreshTokenClaims(
+            Long memberId,
+            Long tokenId,
+            Instant expiredAt
+    ) {
+
+        public static RefreshTokenClaims of(Long memberId, Long tokenId) {
+            return new RefreshTokenClaims(memberId, tokenId, null);
+        }
+    }
+
 }

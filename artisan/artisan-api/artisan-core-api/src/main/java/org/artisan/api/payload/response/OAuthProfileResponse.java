@@ -8,4 +8,7 @@ public record OAuthProfileResponse(
         String avatarUrl,
         boolean isRegistered
 ) {
+    public static OAuthProfileResponse from(OAuthProfileResponse profile) {
+        return null;
+    }
 }
