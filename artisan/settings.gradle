@@ -1,13 +1,15 @@
 rootProject.name = 'artisan'
 
-include 'artisan-api'
 include 'artisan-api:artisan-interview-api'
 include 'artisan-api:artisan-drrr-api'
 include 'artisan-api:artisan-core-api'
-include 'artisan-infra'
-include 'artisan-core'
+
+include 'artisan-core:artisan-core-default'
+include 'artisan-core:artisan-core-web'
 
 include 'artisan-domain:artisan-core-domain'
 include 'artisan-domain:artisan-drrr-domain'
+
 include 'artisan-infra:artisan-docs'
+include 'artisan-infra:artisan-external-client'
 

@@ -2,6 +2,7 @@ package org.artisan.exception;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.artsian.web.exception.HttpExceptionCode;
 import org.springframework.boot.logging.LogLevel;
 import org.springframework.http.HttpStatus;
 

@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public class CoreException extends RuntimeException{
+public class CoreException extends RuntimeException {
 
     private final CoreExceptionCode coreExceptionCode;
 
@@ -30,4 +30,6 @@ public class CoreException extends RuntimeException{
             }
         };
     }
+
+
 }
