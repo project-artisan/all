@@ -18,23 +18,23 @@ public interface TechBlogRepository extends JpaRepository<TechBlogPost, Long> {
                        left join P.tags tag
                        left join tag.category category
                  where category.name like :name%
-                 order by P.writtenAt desc
+                 order by P.blogMetadata.writtenAt desc
             """)
     Slice<TechBlogPost> findByCategoryName(@Param("name") String name, Pageable pageable);
 
-    Slice<TechBlogPost> findByTitleContainingOrderByWrittenAtDesc(String title, Pageable pageable);
+    Slice<TechBlogPost> findByBlogMetadataContainingOrderByBlogMetadataWrittenAtDesc(String title, Pageable pageable);
 
-    Slice<TechBlogPost> findAllByOrderByWrittenAtDesc(Pageable pageable);
+    Slice<TechBlogPost> findAllByOrderByBlogMetadataWrittenAtDesc(Pageable pageable);
 
 
-    Slice<TechBlogPost> findByCodeOrderByWrittenAt(TechBlogCode code);
+    Slice<TechBlogPost> findByBlogMetadataCodeOrderByBlogMetadataWrittenAt(TechBlogCode code);
 
     @Query("""
                 select new org.artisan.domain.CategoryCount(category.id, category.name, count(category.id) )
                 from TechBlogPost p
                    left join p.tags tag
                    left join tag.category category
-                where p.code = :code
+                where p.blogMetadata.code = :code
                 group by category.id, category.name
                 order by count(category.id) desc
             """)

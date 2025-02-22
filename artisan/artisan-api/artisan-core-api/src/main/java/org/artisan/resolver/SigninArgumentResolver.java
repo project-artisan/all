@@ -17,6 +17,7 @@ import org.artisan.exception.BadRequestException;
 import org.artisan.exception.RefreshTokenException;
 import org.artisan.provider.CookieProvider;
 import org.artisan.provider.JwtProvider;
+import org.artisan.provider.JwtProvider.RefreshTokenClaims;
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.support.WebDataBinderFactory;
@@ -64,6 +65,7 @@ public class SigninArgumentResolver implements HandlerMethodArgumentResolver {
                     .filter(cookie -> CookieProvider.REFRESH_TOKEN_KEY.equals(cookie.getName()))
                     .map(Cookie::getValue)
                     .map(jwtProvider::decodeRefreshToken)
+                    .map(RefreshTokenClaims::memberId)
                     .findFirst()
                     .orElseThrow(() -> new RefreshTokenException(NOT_FOUND_REFRESH_TOKEN)));
         } catch (RefreshTokenException refreshTokenException) {

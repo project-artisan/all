@@ -1,16 +1,30 @@
 package org.artisan.domain.file;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
+@Getter
+@Embeddable
 @NoArgsConstructor
-public class ExternalURL extends File {
+public class ExternalURL {
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, name = "file_type")
+    private FileType type;
+
+    @Column(nullable = false, name = "file_id", length = 700)
+    private String id;
 
     public ExternalURL(FileType type, String id) {
-        super(type, id);
+        this.type = type;
+        this.id = id;
     }
 
-    @Override
     public String toUrl() {
         return this.id;
     }

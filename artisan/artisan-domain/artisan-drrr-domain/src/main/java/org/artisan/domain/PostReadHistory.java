@@ -17,8 +17,8 @@ import org.artisan.core.domain.BaseEntity;
 public class PostReadHistory extends BaseEntity {
 
     private Long memberId;
-    private Long postId;
 
+    private Long postId;
 
     @Builder
     public PostReadHistory(Long memberId, Long postId) {
