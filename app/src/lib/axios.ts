@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 // 환경별 기본 URL 설정
-const baseURL = process.env.NODE_ENV === 'production' 
-  ? process.env.VITE_API_URL  // 운영 환경의 API URL
+const baseURL = import.meta.env.PROD
+  ? import.meta.env.VITE_API_URL// 운영 환경의 API URL
   : 'http://localhost:8080';   // 개발 환경의 API URL
 
 export const axiosInstance = axios.create({
