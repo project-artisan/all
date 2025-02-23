@@ -10,7 +10,7 @@ export default function Navbar() {
         <div className="mr-4 flex">
           <a className="mr-6 flex items-center space-x-2" href="/">
             <span className="font-bold sm:inline-block">
-              Tech Blog Reader
+              Project Artisan
             </span>
           </a>
         </div>
