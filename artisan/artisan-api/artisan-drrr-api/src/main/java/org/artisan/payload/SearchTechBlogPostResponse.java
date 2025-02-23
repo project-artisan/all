@@ -1,5 +1,6 @@
 package org.artisan.payload;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import lombok.Builder;
 import org.artisan.core.TechBlogCode;
@@ -17,6 +18,8 @@ public record SearchTechBlogPostResponse(
         TechBlogCode techBlog,
         int viewCount,
 
+        LocalDateTime createdAt,
+
         List<SearchCategoryResponse> categories,
 
         boolean hasRead
@@ -31,6 +34,7 @@ public record SearchTechBlogPostResponse(
                 post.getBlogMetadata().blogLink().toUrl(),
                 post.getBlogMetadata().code(),
                 post.getViewCount(),
+                post.getBlogMetadata().writtenAt(),
                 List.of(),
                 false
         );
