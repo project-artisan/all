@@ -1,5 +1,16 @@
+
 spring:
+
   config:
     import:
       - mysql-db.yml
       - api-security.yml
+
+
+  profiles:
+
+    active: local
+    group:
+      local: local
+      local-dev: local-dev
+      prod: prod
