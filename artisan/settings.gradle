@@ -9,7 +9,9 @@ include 'artisan-core:artisan-core-web'
 
 include 'artisan-domain:artisan-core-domain'
 include 'artisan-domain:artisan-drrr-domain'
+include 'artisan-domain:artisan-interview-domain'
 
 include 'artisan-infra:artisan-docs'
 include 'artisan-infra:artisan-external-client'
+
 
