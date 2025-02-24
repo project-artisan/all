@@ -11,6 +11,11 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     Optional<Member> findByCredentials(OAuthExternalCredentials credentials);
 
+    default Member getById(Long memberId){
+        return findById(memberId)
+                .orElseThrow();
+    }
+
 //    boolean existsByProviderId(String providerId);
 //
 //    boolean existsByEmail(String email);
