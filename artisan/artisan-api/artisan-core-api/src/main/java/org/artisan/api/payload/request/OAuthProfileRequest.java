@@ -5,11 +5,11 @@ import org.artisan.domain.member.OAuthExternalCredentials;
 
 public record OAuthProfileRequest(
         OAuth2State provider,
-        String providerId,
+        String code,
         String redirectUrl
 ) {
 
-    public OAuthExternalCredentials toCredentials(){
+    public OAuthExternalCredentials toCredentials(String providerId){
         return OAuthExternalCredentials.of(provider, providerId);
     }
 }

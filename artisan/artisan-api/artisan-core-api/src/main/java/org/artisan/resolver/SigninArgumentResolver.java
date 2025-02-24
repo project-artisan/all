@@ -50,8 +50,8 @@ public class SigninArgumentResolver implements HandlerMethodArgumentResolver {
 
         return extractMemberId(httpServletRequest.getCookies())
                 .filter(memberIdToRefreshToken -> {
-                    var memberId = jwtProvider.decodeAccessToken(jwtProvider.extractToken(httpServletRequest));
-                    return Objects.equals(memberId, memberIdToRefreshToken);
+                    var accessTokenClaims = jwtProvider.decodeAccessToken(jwtProvider.extractToken(httpServletRequest));
+                    return Objects.equals(accessTokenClaims.memberId(), memberIdToRefreshToken);
                 })
                 .map(User::member)
                 .orElseGet(User::guest);
@@ -63,6 +63,7 @@ public class SigninArgumentResolver implements HandlerMethodArgumentResolver {
             }
             return Optional.of(Arrays.stream(cookies)
                     .filter(cookie -> CookieProvider.REFRESH_TOKEN_KEY.equals(cookie.getName()))
+                            .peek(r -> log.info("{}", r))
                     .map(Cookie::getValue)
                     .map(jwtProvider::decodeRefreshToken)
                     .map(RefreshTokenClaims::memberId)

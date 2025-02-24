@@ -23,9 +23,7 @@ public class MemberApi {
     @MemberOnly
     @GetMapping("/me")
     public MemberProfileResponse getMe(@Auth User user) {
-
-        memberService.read(user);
-        return null;
+        return MemberProfileResponse.from(memberService.read(user));
     }
 
     @MemberOnly

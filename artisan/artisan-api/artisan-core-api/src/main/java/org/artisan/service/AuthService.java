@@ -30,12 +30,14 @@ public class AuthService {
     private final MemberTokenServiceImpl memberTokenService;
 
     public OAuthProfileResponse findProfile(OAuthProfileRequest request) {
-        var profile = githubApiClient.requestProfile(request.providerId(), request.redirectUrl());
+        var profile = githubApiClient.requestProfile(request.code(), request.redirectUrl());
+
+        log.info("{}", profile);
 
         return new OAuthProfileResponse(
                 profile.id(),
                 profile.avatarUrl(),
-                memberService.isMember(request.toCredentials())
+                memberService.isMember(request.toCredentials(profile.id()))
         );
     }
 
