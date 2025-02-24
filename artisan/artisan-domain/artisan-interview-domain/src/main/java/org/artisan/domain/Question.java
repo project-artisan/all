@@ -2,6 +2,8 @@ package org.artisan.domain;
 
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -18,6 +20,9 @@ public class Question extends BaseEntity {
     @Embedded
     private QuestionMetadata metadata;
 
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private QuestionSet questionSet;
 
     /**
      * 콤마로 링크를 구분합니다.
