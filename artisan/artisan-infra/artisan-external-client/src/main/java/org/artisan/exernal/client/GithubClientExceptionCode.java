@@ -1,7 +1,7 @@
 package org.artisan.exernal.client;
 
 import lombok.RequiredArgsConstructor;
-import org.artsian.web.exception.HttpExceptionCode;
+import org.artsian.web.core.exception.HttpExceptionCode;
 import org.springframework.boot.logging.LogLevel;
 import org.springframework.http.HttpStatus;
 

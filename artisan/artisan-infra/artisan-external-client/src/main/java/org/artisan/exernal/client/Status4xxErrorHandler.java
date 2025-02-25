@@ -1,6 +1,6 @@
 package org.artisan.exernal.client;
 
-import org.artsian.web.exception.BadRequestException;
+import org.artsian.web.core.exception.BadRequestException;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.stereotype.Component;

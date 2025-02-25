@@ -1,6 +1,6 @@
-package org.artsian.web.exception;
+package org.artsian.web.core.exception;
 
-import org.artisan.core.CoreException;
+import org.artisan.core.exception.CoreException;
 
 public class BadRequestException extends CoreException {
 

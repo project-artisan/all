@@ -1,4 +1,4 @@
-package org.artisan.core;
+package org.artisan.core.exception;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

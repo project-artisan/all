@@ -1,6 +1,6 @@
 package org.artisan.exernal.client;
 
-import org.artsian.web.exception.InternalServerError;
+import org.artsian.web.core.exception.InternalServerError;
 import org.springframework.stereotype.Component;
 
 import org.springframework.http.HttpRequest;

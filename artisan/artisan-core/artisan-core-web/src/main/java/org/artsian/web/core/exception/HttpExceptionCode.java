@@ -1,6 +1,6 @@
-package org.artsian.web.exception;
+package org.artsian.web.core.exception;
 
-import org.artisan.core.CoreExceptionCode;
+import org.artisan.core.exception.CoreExceptionCode;
 import org.springframework.boot.logging.LogLevel;
 import org.springframework.http.HttpStatus;
 

@@ -1,7 +1,7 @@
 package org.artisan.exernal.client;
 
-import org.artisan.core.CoreException;
-import org.artisan.core.CoreExceptionCode;
+import org.artisan.core.exception.CoreException;
+import org.artisan.core.exception.CoreExceptionCode;
 
 public class ClientException extends CoreException {
 
