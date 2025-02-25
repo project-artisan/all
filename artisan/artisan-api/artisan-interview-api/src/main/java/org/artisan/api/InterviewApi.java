@@ -11,6 +11,7 @@ import org.artisan.payload.InterviewCreateRequest;
 import org.artisan.payload.InterviewCreateResponse;
 import org.artisan.payload.InterviewDetailResponse;
 import org.artisan.payload.InterviewQuestionResponse;
+import org.artisan.payload.InterviewResultResponse;
 import org.artisan.payload.InterviewSubmitRequest;
 import org.artisan.service.InterviewService;
 import org.springframework.data.domain.Pageable;
@@ -55,6 +56,15 @@ public class InterviewApi {
     }
 
     @MemberOnly
+    @GetMapping("/{interviewId}/result")
+    public InterviewResultResponse getResult(
+            @Auth User user,
+            @PathVariable Long interviewId
+    ){
+        return InterviewResultResponse.from(interviewService.getInterviewResult(user, interviewId));
+    }
+
+    @MemberOnly
     @GetMapping("/{interviewId}/current/problem")
     public InterviewQuestionResponse getCurrentProblem(
             @Auth User user,
@@ -66,12 +76,13 @@ public class InterviewApi {
     }
 
     @MemberOnly
-    @PostMapping("/submit")
+    @PostMapping("/{interviewId}/submit")
     public InterviewSubmitResponse submit(
             @Auth User user,
+            @PathVariable Long interviewId,
             @RequestBody InterviewSubmitRequest request
     ) {
-        var tailQuestion = interviewService.submit(user, request.interviewId(), request.toAnswer(), new AIFeedback("", "", 1, List.of()));
+        var tailQuestion = interviewService.submit(user, interviewId, request.toAnswer(), new AIFeedback("꼬리질문입니다.", "피드백요", 1, List.of()));
         return InterviewSubmitResponse.from(tailQuestion);
     }
 

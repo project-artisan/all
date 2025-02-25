@@ -7,6 +7,7 @@ import org.artisan.service.QuestionSetService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
+import org.springframework.data.web.PagedModel;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,11 +20,11 @@ public class QuestionSetApi {
     private final QuestionSetService questionSetService;
 
     @GetMapping
-    public Slice<QuestionSetSearchResponse> getQuestionSets(
+    public PagedModel<QuestionSetSearchResponse> getQuestionSets(
             Pageable pageable
     ){
-        return questionSetService.find(pageable)
-                .map(QuestionSetSearchResponse::from);
+        return new PagedModel<>(questionSetService.find(pageable)
+                .map(QuestionSetSearchResponse::from));
     }
 
 }

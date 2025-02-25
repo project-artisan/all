@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-@Profile(value = {"local-dev8"})
+@Profile(value = {"local-dev"})
 public class DummyDataGenerator implements ApplicationRunner {
     private final QuestionSetRepository questionSetRepository;
     private final QuestionRepository questionRepository;

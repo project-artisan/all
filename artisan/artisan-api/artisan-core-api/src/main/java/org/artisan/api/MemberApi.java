@@ -6,7 +6,6 @@ import org.artisan.api.payload.response.MemberProfileResponse;
 import org.artisan.attributes.Auth;
 import org.artisan.attributes.MemberOnly;
 import org.artisan.core.User;
-import org.artisan.service.MemberService;
 import org.artisan.service.v1.MemberServiceImpl;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;

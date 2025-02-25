@@ -9,7 +9,6 @@ import org.artisan.domain.AnswerState;
 @Slf4j
 @Builder
 public record InterviewSubmitRequest(
-        Long interviewId,
         Long interviewQuestionId,
         AnswerState answerState,
         Integer timeToAnswer,
