@@ -10,7 +10,7 @@ import org.artisan.converter.StringListConverter;
 public record AIFeedback(
         String tailQuestion,
         @Column(length = 2000, name = "feedback_content") String feedback,
-        @Column(nullable = false, name = "ai_feedback_score") int score,
+        @Column(name = "ai_feedback_score") Integer score,
 
         @Column(length = 10000)
         @Convert(converter = StringListConverter.class)

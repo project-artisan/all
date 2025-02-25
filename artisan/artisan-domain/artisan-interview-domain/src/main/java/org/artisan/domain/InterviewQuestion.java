@@ -7,6 +7,8 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -28,7 +30,7 @@ public class InterviewQuestion extends BaseEntity {
     @JoinColumn(nullable = false)
     private Member member;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Question question;
 
     @Embedded
@@ -36,6 +38,9 @@ public class InterviewQuestion extends BaseEntity {
 
     @Embedded
     private AIFeedback aiFeedback;
+
+    @Embedded
+    private TailQuestions tailQuestions;
 
     @Column(nullable = false)
     private int remainTailQuestionCount;

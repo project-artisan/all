@@ -12,8 +12,10 @@ import java.util.List;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.artisan.core.domain.BaseEntity;
 
+@Slf4j
 @Getter
 @Entity
 @Table(name = "question_sets")
@@ -43,8 +45,10 @@ public class QuestionSet extends BaseEntity {
             return questions.getOrderedSequenceValue();
         }
 
+        log.info("{}", questions.getValue());
+
         return questions.shuffle()
-                .subList(0, count)
+                .subList(0, count - 1)
                 .stream()
                 .sorted(comparing(question -> question.getMetadata().sequence()))
                 .toList();

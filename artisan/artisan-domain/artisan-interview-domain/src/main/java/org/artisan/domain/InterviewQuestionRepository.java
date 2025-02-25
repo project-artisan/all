@@ -20,4 +20,12 @@ public interface InterviewQuestionRepository extends JpaRepository<InterviewQues
                 group by I.interview.id
             """)
     List<InterviewQuestionCount> countByInterviewIds(@Param("interviewIds") List<Long> interviewIds);
+
+    @Query("""
+      select iq from InterviewQuestion iq
+      join fetch iq.tailQuestions.value
+      
+      where iq.interview.id = :interviewId
+      """)
+    List<InterviewQuestion> findAllByAssociate(@Param("interviewId") Long interviewId);
 }

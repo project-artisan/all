@@ -2,6 +2,8 @@ package org.artisan.domain;
 
 import java.util.Optional;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -20,6 +22,9 @@ public interface QuestionSetRepository extends JpaRepository<QuestionSet, Long> 
         return findById(questionSetId)
                 .orElseThrow();
     }
+
+    @Query("select qs from QuestionSet qs order by qs.createdAt desc")
+    Page<QuestionSet> findAllOrderBy(Pageable pageable);
 
 
 }

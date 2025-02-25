@@ -8,7 +8,6 @@ public record InterviewSetting(
         @Column(nullable = false) int timeToAnswer
 ){
 
-
     public static InterviewSetting of(
             int tailQuestionDepth,
             int timeToThink,

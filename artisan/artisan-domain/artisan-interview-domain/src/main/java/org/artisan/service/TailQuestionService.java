@@ -20,8 +20,9 @@ public class TailQuestionService {
     private final TailQuestionRepository tailQuestionRepository;
 
     @Nullable
-    public TailQuestion submit(User user, Answer answer, AIFeedback aiFeedback, Long tailQuestionId){
-        var tailQuestion = tailQuestionRepository.getByIdAndMemberId(user.id(), tailQuestionId);
+    public TailQuestion submit(User user, Long tailQuestionId, Answer answer, AIFeedback aiFeedback){
+
+        var tailQuestion = tailQuestionRepository.getByIdAndMemberId(tailQuestionId, user.id());
 
         var newTailQuestion = tailQuestion.submit(answer, aiFeedback);
 

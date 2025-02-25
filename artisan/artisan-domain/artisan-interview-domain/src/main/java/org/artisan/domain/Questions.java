@@ -9,14 +9,10 @@ import java.util.Comparator;
 import java.util.List;
 
 @Embeddable
-public record Questions(
-        @OneToMany(mappedBy = "questionSet", fetch = FetchType.LAZY)
-        List<Question> value
-){
+public class Questions {
 
-    public Questions {
-        value = new ArrayList<>();
-    }
+    @OneToMany(mappedBy = "questionSet", fetch = FetchType.EAGER)
+    List<Question> value = new ArrayList<>();
 
 
     public boolean isEmpty() {

@@ -1,8 +1,9 @@
 package org.artisan.domain;
 
-
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,22 +13,15 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 @Embeddable
-@AllArgsConstructor(access = AccessLevel.PUBLIC)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class InterviewQuestions {
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
+public class TailQuestions {
 
-    @OneToMany(mappedBy = "interview", fetch = FetchType.LAZY)
-    private List<InterviewQuestion> value = new ArrayList<>();
+    @OneToMany(mappedBy = "interviewQuestion", fetch = FetchType.LAZY)
+    private List<TailQuestion> value = new ArrayList<>();
 
-    public static InterviewQuestions empty() {
-        return new InterviewQuestions();
-    }
-
-    public InterviewQuestion get(int index) {
-        return value.get(index);
-    }
-
-    public List<InterviewQuestion> getValue(){
+    public List<TailQuestion> getValue(){
         return Collections.unmodifiableList(value);
     }
+
 }

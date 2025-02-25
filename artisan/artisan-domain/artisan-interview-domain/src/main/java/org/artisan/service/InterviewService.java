@@ -95,10 +95,17 @@ public class InterviewService {
     @Transactional(readOnly = true)
     public Interview getDetail(User user, Long interviewId){
         // TODO validation
-        return interviewRepository.findAllWithAssociations(user.id(), interviewId)
+        return interviewRepository.findAllWithQuestion(user.id(), interviewId)
                 .orElseThrow();
     }
 
+    @Transactional(readOnly = true)
+    public Interview getInterviewResult(User user, Long interviewId) {
+        // TODO validation
+        var interview = interviewRepository.getByIdAndMemberId(interviewId, user.id());
 
+        interview.setInterviewQuestions(interviewQuestionRepository.findAllByAssociate(interviewId));
 
+        return interview;
+    }
 }

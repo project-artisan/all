@@ -13,10 +13,6 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 
     Page<Interview> findByMemberId(Long memberId, Pageable pageable);
 
-
-
-
-
     @Query("""
         select i from Interview i
             join fetch i.interviewQuestions.value iq
@@ -24,7 +20,7 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
             
             where i.id = :interviewId and i.member.id = :memberId 
     """)
-    Optional<Interview> findAllWithAssociations(
+    Optional<Interview> findAllWithQuestion(
             @Param("memberId") Long memberId,
             @Param("interviewId") Long interviewId
     );
@@ -39,4 +35,12 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
         return findByIdAndMemberId(interviewId, memberId)
                 .orElseThrow();
     }
+
+    @Query("""
+        select i from Interview i
+            join fetch i.interviewQuestions.value iq
+            join fetch iq.question q
+            join fetch iq.tailQuestions.value itq
+    """)
+    Optional<Interview> findAllWithAssociations(Long memberId, Long interviewId);
 }

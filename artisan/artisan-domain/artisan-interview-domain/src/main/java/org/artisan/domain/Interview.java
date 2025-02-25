@@ -6,9 +6,11 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.artisan.core.domain.BaseEntity;
 import org.jspecify.annotations.Nullable;
 
@@ -57,6 +59,15 @@ public class Interview extends BaseEntity {
             AIFeedback aiFeedback
     ) {
         var interviewQuestion = this.getCurrentProblem();
+
+        progress.next();
+
         return interviewQuestion.submit(answer, aiFeedback);
     }
+
+    public void setInterviewQuestions(List<InterviewQuestion> interviewQuestions) {
+        // TODO 이거 고치자..
+        this.interviewQuestions = new InterviewQuestions(interviewQuestions);
+    }
+
 }

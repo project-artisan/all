@@ -19,7 +19,6 @@ import org.jspecify.annotations.Nullable;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class TailQuestion extends BaseEntity {
 
-
     @JoinColumn(nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member;

@@ -19,8 +19,8 @@ public class QuestionSetService {
     private final QuestionSetRepository questionSetRepository;
 
     @Transactional(readOnly = true)
-    public Slice<QuestionSet> find(Pageable pageable) {
-        return questionSetRepository.findAll(pageable);
+    public Page<QuestionSet> find(Pageable pageable) {
+        return questionSetRepository.findAllOrderBy(pageable);
     }
 
 
