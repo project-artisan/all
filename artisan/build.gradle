@@ -15,6 +15,9 @@ allprojects {
 
 
     dependencies {
+        // https://mvnrepository.com/artifact/org.jspecify/jspecify
+        implementation 'org.jspecify:jspecify:1.0.0'
+
         compileOnly 'org.projectlombok:lombok'
         annotationProcessor 'org.projectlombok:lombok'
         testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
@@ -35,7 +38,7 @@ subprojects {
     apply plugin: 'io.spring.dependency-management'
 
     bootJar.enabled= true
-    jar.enabled = false
+    jar.enabled = true
     dependencies {
 
     }
