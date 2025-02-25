@@ -24,11 +24,16 @@ public class Question extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private QuestionSet questionSet;
 
-    /**
-     * 콤마로 링크를 구분합니다.
-     */
-    private String referenceLinks;
 
+    public Question(QuestionMetadata metadata, QuestionSet questionSet) {
+        this.metadata = metadata;
+        this.questionSet = questionSet;
+    }
 
-
+    public static Question of(
+            QuestionMetadata metadata,
+            QuestionSet questionSet
+    ){
+        return new Question(metadata, questionSet);
+    }
 }

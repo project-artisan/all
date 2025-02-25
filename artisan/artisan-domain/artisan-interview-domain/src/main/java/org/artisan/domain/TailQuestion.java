@@ -7,10 +7,16 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.artisan.core.domain.BaseEntity;
+import org.jspecify.annotations.Nullable;
 
+@Getter
 @Entity
 @Table(name = "tail_questions")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class TailQuestion extends BaseEntity {
 
 
@@ -23,7 +29,7 @@ public class TailQuestion extends BaseEntity {
     private Interview interview;
 
     @JoinColumn(nullable = false)
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private InterviewQuestion interviewQuestion;
 
     @Column(nullable = false)
@@ -35,5 +41,37 @@ public class TailQuestion extends BaseEntity {
     @Embedded
     private Answer answer = Answer.init();
 
+    public TailQuestion(Member member, Interview interview, InterviewQuestion interviewQuestion, String question) {
+        this.member = member;
+        this.interview = interview;
+        this.interviewQuestion = interviewQuestion;
+        this.question = question;
+    }
 
+    public static TailQuestion of(
+            Member member,
+            Interview interview,
+            InterviewQuestion interviewQuestion,
+            String question
+    ) {
+        return new TailQuestion(
+                member,
+                interview,
+                interviewQuestion,
+                question
+        );
+    }
+
+    @Nullable
+    public TailQuestion submit(Answer answer, AIFeedback aiFeedback) {
+        switch (answer.state()) {
+            case COMPLETE -> this.aiFeedback = aiFeedback;
+            case PASS -> {}
+            default -> throw new UnsupportedOperationException();
+        }
+
+        this.answer = answer;
+        return interviewQuestion.createTailQuestion(aiFeedback);
+    }
 }
+

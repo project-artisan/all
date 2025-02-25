@@ -10,4 +10,14 @@ public interface TailQuestionRepository extends JpaRepository<TailQuestion, Long
     Optional<TailQuestion> findByIdAndMemberId(Long tailQuestionId, Long memberId);
 
     List<TailQuestion> findByInterviewId(Long interviewId);
+
+    default TailQuestion getByIdAndMemberId(Long tailQuestionId, Long memberId){
+        // TODO 에러 처리 할 것
+        return findByIdAndMemberId(tailQuestionId, memberId)
+                .orElseThrow();
+    }
+
+
+
+
 }

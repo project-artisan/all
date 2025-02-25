@@ -7,7 +7,6 @@ import jakarta.persistence.Enumerated;
 
 @Embeddable
 public record Answer(
-
         @Enumerated(EnumType.STRING)
         @Column(name = "answer_state")
         AnswerState state,
@@ -21,5 +20,9 @@ public record Answer(
                 null,
                 null
         );
+    }
+
+    public static Answer of(AnswerState answerState, String content, Integer timeToAnswer) {
+        return new Answer(answerState, content, timeToAnswer);
     }
 }

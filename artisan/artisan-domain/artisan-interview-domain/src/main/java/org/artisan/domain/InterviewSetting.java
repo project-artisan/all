@@ -8,11 +8,16 @@ public record InterviewSetting(
         @Column(nullable = false) int timeToAnswer
 ){
 
-    public static InterviewSetting from(QuestionSetRule rule){
+
+    public static InterviewSetting of(
+            int tailQuestionDepth,
+            int timeToThink,
+            int timeToAnswer
+    ) {
         return new InterviewSetting(
-                rule.tailQuestionDepth(),
-                rule.timeToThink(),
-                rule.timeToAnswer()
+                tailQuestionDepth,
+                timeToThink,
+                timeToAnswer
         );
     }
 

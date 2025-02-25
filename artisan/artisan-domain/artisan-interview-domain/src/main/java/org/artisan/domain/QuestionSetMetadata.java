@@ -7,6 +7,7 @@ import org.artisan.domain.file.ExternalURL;
 public record QuestionSetMetadata(
         String title,
         String description,
-        ExternalURL thumbnailUrl
+        ExternalURL thumbnailUrl,
+        int count
 ){
 }

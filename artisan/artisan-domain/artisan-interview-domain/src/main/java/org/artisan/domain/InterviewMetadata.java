@@ -6,4 +6,7 @@ import jakarta.persistence.Embeddable;
 public record InterviewMetadata (
         String title
 ){
+    public static InterviewMetadata from(QuestionSet questionSet) {
+        return new InterviewMetadata(questionSet.getMetadata().title());
+    }
 }
