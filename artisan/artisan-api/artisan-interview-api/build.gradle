@@ -1,19 +1,10 @@
-plugins {
-    id 'java'
-}
-
-group = 'artisan'
-version = '0.0.1'
-
-repositories {
-    mavenCentral()
-}
-
 dependencies {
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
-}
+    implementation project(":artisan-core:artisan-core-web")
+    implementation project(":artisan-core:artisan-core-default")
 
-test {
-    useJUnitPlatform()
+    implementation project(":artisan-api:artisan-core-api")
+
+    implementation project(":artisan-domain:artisan-core-domain")
+    implementation project(":artisan-domain:artisan-interview-domain")
+    implementation project(":artisan-infra:artisan-docs")
 }
