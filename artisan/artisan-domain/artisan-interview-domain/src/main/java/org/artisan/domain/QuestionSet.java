@@ -48,7 +48,7 @@ public class QuestionSet extends BaseEntity {
         log.info("{}", questions.getValue());
 
         return questions.shuffle()
-                .subList(0, count - 1)
+                .subList(0, count)
                 .stream()
                 .sorted(comparing(question -> question.getMetadata().sequence()))
                 .toList();

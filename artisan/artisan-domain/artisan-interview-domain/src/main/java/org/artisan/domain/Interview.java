@@ -48,8 +48,12 @@ public class Interview extends BaseEntity {
         this.setting = setting;
     }
 
+    @Nullable
     public InterviewQuestion getCurrentProblem() {
         // TODO index 범위 조절
+        if(progress.isDone()) {
+            return null;
+        }
         return interviewQuestions.get(progress.getIndex());
     }
 
@@ -58,8 +62,7 @@ public class Interview extends BaseEntity {
             Answer answer,
             AIFeedback aiFeedback
     ) {
-        var interviewQuestion = this.getCurrentProblem();
-
+        var interviewQuestion = interviewQuestions.get(progress.getIndex());
         progress.next();
 
         return interviewQuestion.submit(answer, aiFeedback);

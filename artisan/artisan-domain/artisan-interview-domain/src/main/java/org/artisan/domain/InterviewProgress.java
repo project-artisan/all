@@ -38,6 +38,10 @@ public class InterviewProgress {
         return new InterviewProgress(0, size, InterviewStatus.PROGRESS);
     }
 
+    public boolean isDone(){
+        return status == InterviewStatus.DONE;
+    }
+
     public void next() {
         // TODO 검증 로직 추가하기
 //        INTERVIEW_STATE_IS_DONE.invokeByCondition(interviewState != InterviewState.PROGRESS);

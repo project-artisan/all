@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.artisan.core.User;
 import org.artisan.domain.AIFeedback;
 import org.artisan.domain.Answer;
+import org.artisan.domain.CurrentInterview;
 import org.artisan.domain.Interview;
 import org.artisan.domain.InterviewMetadata;
 import org.artisan.domain.InterviewProgress;
@@ -79,11 +80,19 @@ public class InterviewService {
 
 
     @Transactional(readOnly = true)
-    public InterviewQuestion loadByCurrentProblem(User user, Long interviewId) {
+    public CurrentInterview loadByCurrentProblem(User user, Long interviewId) {
         // TODO 내 인터뷰가 아닌 것도 조회가 되어야 하는가?
         var interview = interviewRepository.getByIdAndMemberId(interviewId, user.id());
+        var interviewQuestion = interview.getCurrentProblem();
 
-        return interview.getCurrentProblem();
+        if(interviewQuestion == null){
+            return new CurrentInterview(interview, null);
+        }
+
+        return new CurrentInterview(
+                interview,
+                interview.getCurrentProblem()
+        );
     }
 
     @Transactional(readOnly = true)

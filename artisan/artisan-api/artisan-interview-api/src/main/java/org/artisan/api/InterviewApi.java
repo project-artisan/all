@@ -70,9 +70,9 @@ public class InterviewApi {
             @Auth User user,
             @NotNull @PathVariable("interviewId") Long interviewId
     ) {
-        var interviewQuestion = interviewService.loadByCurrentProblem(user, interviewId);
+        var currentInterview = interviewService.loadByCurrentProblem(user, interviewId);
 
-        return InterviewQuestionResponse.from(interviewQuestion);
+        return InterviewQuestionResponse.from(currentInterview);
     }
 
     @MemberOnly

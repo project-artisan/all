@@ -10,7 +10,7 @@ public record Answer(
         @Enumerated(EnumType.STRING)
         @Column(name = "answer_state")
         AnswerState state,
-        @Column(name = "answer_content") String content,
+        @Column(name = "answer_content", length = 500) String content,
         @Column(name = "time_to_answer") Integer timeToAnswer
 ){
 
