@@ -32,7 +32,7 @@ public record InterviewQuestionResponse(
         return new InterviewQuestionResponse(
                 interview.getId(),
                 interview.getProgress().getStatus(),
-                interviewQuestion.getQuestion().getId(),
+                interviewQuestion.getId(),
                 interviewQuestion.getQuestion().getMetadata().content(),
                 interviewQuestion.getInterview().getProgress().getIndex(),
                 interviewQuestion.getInterview().getProgress().getSize(),

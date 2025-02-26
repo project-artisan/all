@@ -22,7 +22,7 @@ import org.jspecify.annotations.Nullable;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class InterviewQuestion extends BaseEntity {
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false)
     private Interview interview;
 

@@ -6,10 +6,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.artisan.attributes.Auth;
 import org.artisan.attributes.MemberOnly;
 import org.artisan.core.User;
-import org.artisan.domain.AIFeedback;
 import org.artisan.payload.TailQuestionSubmitRequest;
 import org.artisan.payload.TailQuestionSubmitResponse;
-import org.artisan.service.TailQuestionService;
+import org.artisan.service.FeedbackService;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("/api/tail-questions")
 public class TailQuestionApi {
-    private final TailQuestionService tailQuestionService;
+    private final FeedbackService feedbackService;
 
     @MemberOnly
     @PostMapping("/{tailQuestionId}/submit")
@@ -30,14 +29,7 @@ public class TailQuestionApi {
             @PathVariable Long tailQuestionId,
             @RequestBody TailQuestionSubmitRequest request
     ) {
-        log.info(">>>>>>>>> {} {} {}", user, tailQuestionId, request);
-        var submitResult = tailQuestionService.submit(
-                user,
-                tailQuestionId,
-                request.toAnswer(),
-                new AIFeedback("답변", "피드백", 10, List.of("www.naver.com"))
-        );
-
+        var submitResult = feedbackService.submit(user, tailQuestionId, request);
         return TailQuestionSubmitResponse.from(submitResult);
     }
 }

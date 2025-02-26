@@ -5,8 +5,8 @@ import org.artisan.domain.QuestionSet;
 
 public record QuestionSetSearchResponse(
         Long questionSetId,
-        String description,
         String title,
+        String description,
         int count,
         int tailQuestionDepth,
         String thumbnailUrl

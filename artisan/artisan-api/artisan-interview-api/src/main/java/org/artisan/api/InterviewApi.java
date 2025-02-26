@@ -6,13 +6,13 @@ import lombok.RequiredArgsConstructor;
 import org.artisan.attributes.Auth;
 import org.artisan.attributes.MemberOnly;
 import org.artisan.core.User;
-import org.artisan.domain.AIFeedback;
 import org.artisan.payload.InterviewCreateRequest;
 import org.artisan.payload.InterviewCreateResponse;
 import org.artisan.payload.InterviewDetailResponse;
 import org.artisan.payload.InterviewQuestionResponse;
 import org.artisan.payload.InterviewResultResponse;
 import org.artisan.payload.InterviewSubmitRequest;
+import org.artisan.service.FeedbackService;
 import org.artisan.service.InterviewService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedModel;
@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class InterviewApi {
 
     private final InterviewService interviewService;
+    private final FeedbackService feedbackService;
 
     @MemberOnly
     @PostMapping
@@ -82,7 +83,7 @@ public class InterviewApi {
             @PathVariable Long interviewId,
             @RequestBody InterviewSubmitRequest request
     ) {
-        var tailQuestion = interviewService.submit(user, interviewId, request.toAnswer(), new AIFeedback("꼬리질문입니다.", "피드백요", 1, List.of()));
+        var tailQuestion = feedbackService.submit(user, interviewId, request);
         return InterviewSubmitResponse.from(tailQuestion);
     }
 

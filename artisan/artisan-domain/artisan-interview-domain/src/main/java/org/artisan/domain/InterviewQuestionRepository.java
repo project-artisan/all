@@ -1,6 +1,7 @@
 package org.artisan.domain;
 
 import java.util.List;
+import org.jspecify.annotations.NonNull;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -28,4 +29,9 @@ public interface InterviewQuestionRepository extends JpaRepository<InterviewQues
       where iq.interview.id = :interviewId
       """)
     List<InterviewQuestion> findAllByAssociate(@Param("interviewId") Long interviewId);
+
+    default InterviewQuestion getById(@NonNull Long interviewQuestionId){
+        return findById(interviewQuestionId)
+                .orElseThrow();
+    }
 }

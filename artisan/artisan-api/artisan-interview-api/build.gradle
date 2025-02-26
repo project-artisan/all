@@ -6,5 +6,7 @@ dependencies {
 
     implementation project(":artisan-domain:artisan-core-domain")
     implementation project(":artisan-domain:artisan-interview-domain")
+
     implementation project(":artisan-infra:artisan-docs")
+    implementation project(":artisan-infra:artisan-ai-client")
 }
