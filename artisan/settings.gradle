@@ -16,5 +16,5 @@ include 'artisan-infra:artisan-external-client'
 include 'artisan-infra:artisan-ai-client'
 
 include 'artisan-batch'
-include 'artisan-fluent-crawler'
+include ':artisan-utils:artisan-fluent-crawler'
 
