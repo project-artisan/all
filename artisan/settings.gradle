@@ -13,5 +13,6 @@ include 'artisan-domain:artisan-interview-domain'
 
 include 'artisan-infra:artisan-docs'
 include 'artisan-infra:artisan-external-client'
-
+include 'artisan-infra:artisan-ai-client'
+findProject(':artisan-infra:artisan-ai-client')?.name = 'artisan-ai-client'
 

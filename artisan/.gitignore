@@ -38,3 +38,5 @@ out/
 
 *.key
 *.pub
+
+*.yml
