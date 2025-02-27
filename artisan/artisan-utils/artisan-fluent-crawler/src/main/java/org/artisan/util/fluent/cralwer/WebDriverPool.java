@@ -10,6 +10,7 @@ import org.apache.commons.pool2.PooledObject;
 import org.apache.commons.pool2.PooledObjectFactory;
 import org.apache.commons.pool2.impl.DefaultPooledObject;
 import org.apache.commons.pool2.impl.GenericObjectPool;
+import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
@@ -24,8 +25,15 @@ public class WebDriverPool extends GenericObjectPool<WebDriver> {
     }
 
     public WebDriverPool(PooledObjectFactory<WebDriver> factory, int max) {
-        super(factory);
+        super(factory, defaultConfig());
         this.setMaxTotal(max);
+    }
+
+    // jmx default 빈 등록 설정 막ㄱ
+    private static GenericObjectPoolConfig<WebDriver> defaultConfig(){
+        var config = new GenericObjectPoolConfig<WebDriver>();
+        config.setJmxEnabled(false);
+        return config;
     }
 
     public WebDriverPool maxTotal(int maxTotal) {
@@ -54,6 +62,7 @@ public class WebDriverPool extends GenericObjectPool<WebDriver> {
             throw new RuntimeException(e);
         }
     }
+
 
     @Override
     public void returnObject(WebDriver obj) {
