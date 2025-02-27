@@ -1,0 +1,81 @@
+package org.artisan.domain;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import java.time.LocalDate;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.artisan.core.TechBlogCode;
+import org.artisan.core.domain.BaseEntity;
+
+@Getter
+@Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class TemporalTechBlogPost extends BaseEntity {
+
+    @Column(nullable = false)
+    private LocalDate writtenAt;
+
+    @Column
+    private String author;
+    @Column(length = 500)
+    private String thumbnailUrl;
+
+    @Column(nullable = false)
+    private String title;
+
+    // 설명이 없는 기술블로그가 있음
+    @Column(length = 1000)
+    private String summary;
+
+    @Column(columnDefinition = "TEXT")
+    private String aiSummary;
+
+    @Column(nullable = false)
+    private String urlSuffix;
+
+    @Column(nullable = false)
+    private String url;
+
+    @Enumerated(EnumType.STRING)
+    private TechBlogCode techBlogCode;
+
+    @Column(nullable = false)
+    private LocalDate crawledDate;
+
+    @Column(nullable = false)
+    private boolean registrationCompleted;
+
+    @Builder
+    public TemporalTechBlogPost(
+            LocalDate createdDate,
+            String author,
+            String thumbnailUrl,
+            String title,
+            String summary,
+            String aiSummary,
+            String urlSuffix,
+            String url,
+            TechBlogCode techBlogCode,
+            LocalDate crawledDate,
+            boolean registrationCompleted
+    ) {
+        this.writtenAt = createdDate;
+        this.author = author;
+        this.thumbnailUrl = thumbnailUrl;
+        this.title = title;
+        this.summary = summary;
+        this.aiSummary = aiSummary;
+        this.urlSuffix = urlSuffix;
+        this.url = url;
+        this.techBlogCode = techBlogCode;
+        this.crawledDate = crawledDate;
+        this.registrationCompleted = registrationCompleted;
+    }
+
+
+}

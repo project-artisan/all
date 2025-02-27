@@ -15,6 +15,7 @@ include 'artisan-infra:artisan-docs'
 include 'artisan-infra:artisan-external-client'
 include 'artisan-infra:artisan-ai-client'
 
-include 'artisan-batch'
+include 'artisan-batch:artisan-techblog-batch'
+
 include ':artisan-utils:artisan-fluent-crawler'
 

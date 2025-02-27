@@ -1,0 +1,9 @@
+dependencies {
+    implementation project(":artisan-core:artisan-core-default")
+    implementation project(":artisan-domain:artisan-core-domain")
+    implementation project(":artisan-domain:artisan-drrr-domain")
+    implementation project(":artisan-utils:artisan-fluent-crawler")
+
+    implementation 'org.springframework.boot:spring-boot-starter-batch'
+    testImplementation 'org.springframework.batch:spring-batch-test'
+}
