@@ -1,0 +1,8 @@
+[submodule "artisan/artisan-infra/artisan-external-client/src/main/resources"]
+    path = artisan/artisan-infra/artisan-external-client/src/main/resources
+    url = https://github.com/project-artisan/github-client
+
+
+[submodule "artisan/artisan-infra/artisan-ai-client/src/main/resources"]
+    path = artisan/artisan-infra/artisan-ai-client/src/main/resources
+    url = https://github.com/project-artisan/ai-client
