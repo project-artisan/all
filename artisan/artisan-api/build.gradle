@@ -1,0 +1,8 @@
+dependencies {
+    implementation project(":artisan-api:artisan-core-api")
+    implementation project(":artisan-api:artisan-drrr-api")
+    implementation project(":artisan-api:artisan-interview-api")
+
+
+    implementation project(":artisan-infra:artisan-docs")
+}

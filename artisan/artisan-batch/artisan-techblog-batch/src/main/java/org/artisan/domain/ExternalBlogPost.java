@@ -25,11 +25,9 @@ public record ExternalBlogPost(
                 .url(this.link())
                 .createdDate(this.postDate())
                 .techBlogCode(this.code())
-                .registrationCompleted(false)
                 .crawledDate(LocalDate.now())
                 .urlSuffix(this.suffix())
                 .build();
-
     }
 }
 

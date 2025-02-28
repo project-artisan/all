@@ -5,7 +5,6 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.artisan.core.domain.BaseEntity;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 @Getter
 @Entity
@@ -18,5 +17,5 @@ public class Category extends BaseEntity {
     public Category(String name) {
         this.name = name;
     }
-
+//
 }

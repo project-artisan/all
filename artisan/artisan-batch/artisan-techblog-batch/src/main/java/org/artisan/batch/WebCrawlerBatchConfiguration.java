@@ -75,7 +75,7 @@ public class WebCrawlerBatchConfiguration {
     @Bean(CRAWLING_STEP_NAME)
     @JobScope
     public Step crawlingStep(
-            @Value("#{jobParameters[techBlogCode]}") Long code,
+            @Value("#{jobParameters[techBlogCode]}") Integer code,
             @Value("#{jobParameters[requestDate]}") String requestDate
     ) {
 
@@ -89,7 +89,7 @@ public class WebCrawlerBatchConfiguration {
     @JobScope
     @Bean(TECH_BLOG_PROCESS_STEP_NAME)
     public Step techBlogProcessStep(
-            @Value("#{jobParameters[techBlogCode]}") Long code
+            @Value("#{jobParameters[techBlogCode]}") Integer code
     ) {
         return new StepBuilder(TECH_BLOG_PROCESS_STEP_NAME, jobRepository)
                 .<TechBlogPost, TechBlogPost>chunk(10, transactionManager)
@@ -101,7 +101,7 @@ public class WebCrawlerBatchConfiguration {
     @Bean(TEMP_TECH_BLOG_PROCESS_STEP_NAME)
     @JobScope
     public Step tempTechBlogProcessStep(
-            @Value("#{jobParameters[techBlogCode]}") Long code
+            @Value("#{jobParameters[techBlogCode]}") Integer code
     ) {
         return new StepBuilder(TEMP_TECH_BLOG_PROCESS_STEP_NAME, jobRepository)
                 .<TemporalTechBlogPost, TemporalTechBlogPost>chunk(10, transactionManager)
@@ -118,13 +118,10 @@ public class WebCrawlerBatchConfiguration {
                 .build();
     }
 
-
-
-
     @StepScope
     @Bean("TemporalTechBlogJpaCursorItemReader")
     JpaCursorItemReader<TemporalTechBlogPost> temporalTechBlogPostItemReader(
-            @Value("#{jobParameters[techBlogCode]}") Long code
+            @Value("#{jobParameters[techBlogCode]}") Integer code
     ){
         return new JpaCursorItemReaderBuilder<TemporalTechBlogPost>()
                 .name("TempTechBlogReader")
@@ -137,7 +134,7 @@ public class WebCrawlerBatchConfiguration {
     @StepScope
     @Bean("TechBlogJpaCursorItemReader")
     JpaCursorItemReader<TechBlogPost> techBlogPostItemReader(
-            @Value("#{jobParameters[techBlogCode]}") Long code
+            @Value("#{jobParameters[techBlogCode]}") Integer code
     ){
         return new JpaCursorItemReaderBuilder<TechBlogPost>()
                 .name("TechBlogReader")

@@ -44,4 +44,6 @@ public interface TechBlogRepository extends JpaRepository<TechBlogPost, Long> {
     @Query("select p from TechBlogPost p where p.id = :id")
     Optional<TechBlogPost> findByIdWithLock(@Param("id") Long id);
 
+
+    boolean existsByBlogMetadataCodeAndBlogMetadataUrlSuffix(TechBlogCode techBlogCode, String urlSuffix);
 }

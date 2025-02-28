@@ -5,5 +5,4 @@ dependencies {
 
     implementation project(":artisan-domain:artisan-core-domain")
     implementation project(":artisan-domain:artisan-drrr-domain")
-    implementation project(":artisan-infra:artisan-docs")
 }

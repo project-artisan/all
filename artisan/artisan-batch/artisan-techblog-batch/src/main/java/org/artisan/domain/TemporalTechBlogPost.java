@@ -1,17 +1,24 @@
 package org.artisan.domain;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
+import org.artisan.convert.TechBlogCodeConverter;
 import org.artisan.core.TechBlogCode;
 import org.artisan.core.domain.BaseEntity;
+import org.artisan.domain.file.ExternalURL;
+import org.artisan.domain.post.BlogMetadata;
 
+@ToString
+@Slf4j
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -41,7 +48,7 @@ public class TemporalTechBlogPost extends BaseEntity {
     @Column(nullable = false)
     private String url;
 
-    @Enumerated(EnumType.STRING)
+    @Convert(converter = TechBlogCodeConverter.class)
     private TechBlogCode techBlogCode;
 
     @Column(nullable = false)
@@ -61,8 +68,8 @@ public class TemporalTechBlogPost extends BaseEntity {
             String urlSuffix,
             String url,
             TechBlogCode techBlogCode,
-            LocalDate crawledDate,
-            boolean registrationCompleted
+            LocalDate crawledDate
+
     ) {
         this.writtenAt = createdDate;
         this.author = author;
@@ -74,8 +81,21 @@ public class TemporalTechBlogPost extends BaseEntity {
         this.url = url;
         this.techBlogCode = techBlogCode;
         this.crawledDate = crawledDate;
-        this.registrationCompleted = registrationCompleted;
+        this.registrationCompleted = true;
     }
 
-
+    public TechBlogPost toTechBlogPost() {
+        log.info("{}", this);
+        var metadata = new BlogMetadata(
+                title,
+                this.summary,
+                this.writtenAt,
+                this.urlSuffix,
+                ExternalURL.from(this.thumbnailUrl),
+                ExternalURL.from(this.url),
+                this.techBlogCode
+        );
+        log.info("{}", metadata);
+        return TechBlogPost.from(metadata);
+    }
 }

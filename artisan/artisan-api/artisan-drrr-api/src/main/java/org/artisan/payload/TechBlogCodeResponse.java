@@ -3,7 +3,7 @@ package org.artisan.payload;
 import org.artisan.core.TechBlogCode;
 
 public record TechBlogCodeResponse(
-        Long id,
+        Integer id,
         String name
 ) {
     public static TechBlogCodeResponse from(TechBlogCode code) {

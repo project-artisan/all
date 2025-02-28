@@ -1,5 +1,6 @@
 package org.artisan.payload;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.Builder;
@@ -18,7 +19,7 @@ public record SearchTechBlogPostResponse(
         TechBlogCode techBlog,
         int viewCount,
 
-        LocalDateTime createdAt,
+        LocalDate createdAt,
 
         List<SearchCategoryResponse> categories,
 

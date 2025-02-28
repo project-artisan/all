@@ -14,7 +14,7 @@ import org.artisan.core.exception.CoreException;
 @Getter
 @RequiredArgsConstructor
 public enum TechBlogCode {
-    BASE(100L, ""), // 기본 상태
+    BASE(100, ""), // 기본 상태
     MARKET_KURLY(BASE.id + 1, "마켓 컬리", "https://helloworld.kurly.com/assets/logo2.png"),
     NAVER(BASE.id + 2, "네이버", "https://d2.naver.com/static/img/app/d2_logo.gif"),
     WOOWAHAN(BASE.id + 3, "우아한 형제들", "https://woowahan-cdn.woowahan.com/static/image/share_kor.jpg"),
@@ -37,20 +37,20 @@ public enum TechBlogCode {
     KAKAO_PAY(BASE.id + 15, "카카오 페이", "https://tech.kakaopay.com/_astro/techlog.c831e159_Z12ejLo.png"),
     SMAIL_GATE_AI(BASE.id + 16, "스마일 게이트 ai");
 
-    private static final Map<Long, TechBlogCode> cache = Arrays.stream(values())
+    private static final Map<Integer, TechBlogCode> cache = Arrays.stream(values())
             .collect(Collectors.toUnmodifiableMap(TechBlogCode::getId, Function.identity()));
 
-    private final Long id;
+    private final Integer id;
     private final String name;
     private String blogLogo;
 
-    TechBlogCode(Long id, String name, String blogLogo) {
+    TechBlogCode(Integer id, String name, String blogLogo) {
         this.id = id;
         this.name = name;
         this.blogLogo = blogLogo;
     }
 
-    public static TechBlogCode from(Long id) {
+    public static TechBlogCode from(Integer id) {
         var blog = cache.get(id);
         if(blog == null) {
             throw new CoreException("존재하지 않는 기술블로그입니다.");

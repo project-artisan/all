@@ -1,7 +1,9 @@
 package org.artisan.domain;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
 
+@Embeddable
 public record InterviewSetting(
         @Column(nullable = false) int tailQuestionDepth,
         @Column(nullable = false) int timeToThink,
