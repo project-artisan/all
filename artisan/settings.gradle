@@ -1,7 +1,9 @@
 rootProject.name = 'artisan'
 
-include 'artisan-api:artisan-interview-api'
+
+include 'artisan-api'
 include 'artisan-api:artisan-drrr-api'
+include 'artisan-api:artisan-interview-api'
 include 'artisan-api:artisan-core-api'
 
 include 'artisan-core:artisan-core-default'
