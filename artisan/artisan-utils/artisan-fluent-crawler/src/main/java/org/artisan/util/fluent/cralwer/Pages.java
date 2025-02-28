@@ -52,7 +52,7 @@ public class Pages<T> implements Page<T> {
         this.webDriver = webDriver;
         this.after = after;
         this.webDriverCleaner = webDriverCleaner;
-        this.webDriverWait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
+        this.webDriverWait = new WebDriverWait(webDriver, Duration.ofSeconds(100));
     }
 
     @Override

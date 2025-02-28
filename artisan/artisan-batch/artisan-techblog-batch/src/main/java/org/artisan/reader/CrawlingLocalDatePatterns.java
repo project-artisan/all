@@ -12,6 +12,7 @@ import java.util.function.Supplier;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.jspecify.annotations.Nullable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -46,8 +47,13 @@ public enum CrawlingLocalDatePatterns {
         this.dateTimeFormatter = DateTimeFormatter.ofPattern(pattern, language);
     }
 
+    @Nullable
     public LocalDate parse(String text) {
-        return LocalDate.parse(text, this.dateTimeFormatter);
+        try{
+            return LocalDate.parse(text, this.dateTimeFormatter);
+        }catch (Exception exception) {
+            return null;
+        }
     }
 
 }

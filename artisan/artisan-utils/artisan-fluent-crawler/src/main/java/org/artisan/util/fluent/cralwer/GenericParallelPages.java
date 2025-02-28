@@ -84,12 +84,12 @@ public class GenericParallelPages<T> implements MultiPage<T> {
         if (Objects.nonNull(paginationInformation)) {
             return;
         }
-        //webDriverPool.preLoadDriver(parallelCount);
+//        webDriverPool.preLoadDriver(parallelCount);
         this.paginationInformation = webDriverPool.delegate(webDriver -> {
             webDriver.get(home);
             contentsLoader.waitUntilLoad(new WebDriverWait(
                     webDriver,
-                    Duration.ofSeconds(3))
+                    Duration.ofSeconds(10))
             );
 
             var paginationInformation = paginationReader.read(webDriver);

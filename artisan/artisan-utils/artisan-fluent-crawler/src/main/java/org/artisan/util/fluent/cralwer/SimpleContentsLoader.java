@@ -14,7 +14,7 @@ public class SimpleContentsLoader implements ContentsLoader {
     @Override
     public void waitUntilLoad(WebDriverWait webDriverWait) {
         webDriverWait.until(
-                ExpectedConditions.visibilityOfElementLocated(target)
+                ExpectedConditions.visibilityOfAllElementsLocatedBy(target)
         );
     }
 }

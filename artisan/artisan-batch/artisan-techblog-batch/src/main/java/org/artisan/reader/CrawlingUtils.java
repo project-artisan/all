@@ -4,7 +4,9 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 import java.util.function.Supplier;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class CrawlingUtils {
@@ -54,4 +56,30 @@ public class CrawlingUtils {
 
     }
 
+    public static void renderAll(WebDriver webDriver) {
+
+        JavascriptExecutor js = (JavascriptExecutor) webDriver;
+        long lastHeight = (long) js.executeScript("return document.body.scrollHeight");
+        // 페이지 맨 아래로 스크롤
+        js.executeScript("window.scrollTo(0, document.body.scrollHeight);");
+
+
+        while (true) {
+            // 페이지 맨 아래로 스크롤
+            js.executeScript("window.scrollTo(0, document.body.scrollHeight);");
+
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
+            long newHeight = (long) js.executeScript("return document.body.scrollHeight");
+
+            if (newHeight == lastHeight) {
+                break;
+            }
+            lastHeight = newHeight;
+        }
+    }
 }
