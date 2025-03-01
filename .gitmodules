@@ -6,11 +6,11 @@
     path = artisan/artisan-infra/artisan-ai-client/src/main/resources
     url = https://github.com/project-artisan/ai-client
 
-
-
 [submodule "artisan/artisan-domain/artisan-core-domain/src/main/resources"]
 	path = artisan/artisan-domain/artisan-core-domain/src/main/resources
 	url = https://github.com/project-artisan/core-domain
+
+
 [submodule "artisan/artisan-api/artisan-core-api/src/main/resources"]
 	path = artisan/artisan-api/artisan-core-api/src/main/resources
 	url = https://github.com/project-artisan/core-api
