@@ -1,23 +1,17 @@
 import axios from 'axios';
 
-// 환경별 기본 URL 설정
-const baseURL = import.meta.env.PROD
-  ? import.meta.env.VITE_API_URL// 운영 환경의 API URL
-  : 'http://localhost:8080';   // 개발 환경의 API URL
-
 export const axiosInstance = axios.create({
-  baseURL,
-  timeout: 10000,
+  baseURL: import.meta.env.VITE_API_URL,
   headers: {
     'Content-Type': 'application/json',
   },
+  withCredentials: true
 });
 
-// 요청 인터셉터
+// Request interceptor
 axiosInstance.interceptors.request.use(
   (config) => {
-    // 토큰이 필요한 경우 여기서 처리
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('access_token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -28,14 +22,12 @@ axiosInstance.interceptors.request.use(
   }
 );
 
-// 응답 인터셉터
+// Response interceptor
 axiosInstance.interceptors.response.use(
   (response) => response,
-  (error) => {
-    // 에러 처리 (401, 403 등)
+  async (error) => {
     if (error.response?.status === 401) {
-      // 인증 에러 처리
-      localStorage.removeItem('token');
+      localStorage.removeItem('access_token');
       window.location.href = '/login';
     }
     return Promise.reject(error);
