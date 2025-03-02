@@ -5,4 +5,5 @@ dependencies {
 
 
     implementation project(":artisan-infra:artisan-docs")
+    implementation project(":artisan-infra:artisan-infra-traffic-hunter")
 }
