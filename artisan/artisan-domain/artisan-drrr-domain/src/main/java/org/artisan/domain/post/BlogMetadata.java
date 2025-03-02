@@ -65,7 +65,7 @@ public class BlogMetadata {
         var thumbnailUrl = thumbnail.toUrl();
 
         if (Strings.isBlank(thumbnailUrl)) {
-            return code.getBlogLogo();
+            return code.getMetadata().getLogo();
         }
 
         return thumbnailUrl;

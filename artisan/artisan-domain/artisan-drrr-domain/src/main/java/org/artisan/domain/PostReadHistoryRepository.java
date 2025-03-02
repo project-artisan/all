@@ -8,4 +8,5 @@ public interface PostReadHistoryRepository extends JpaRepository<PostReadHistory
     Long countByMemberId(Long memberId);
 
     List<PostReadHistory> findDistinctByMemberIdAndPostIdIn(Long memberId, List<Long> postIds);
+
 }

@@ -1,6 +1,8 @@
 package org.artisan.service;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.artisan.core.TechBlogCode;
 import org.artisan.domain.TechBlogPost;
 import org.artisan.domain.TechBlogRepository;
 import org.springframework.data.domain.Pageable;
@@ -15,7 +17,8 @@ public class TechBlogService {
     private final TechBlogRepository techBlogRepository;
 
     @Transactional(readOnly = true)
-    public Slice<TechBlogPost> readAll(String title, Pageable pageable){
-        return techBlogRepository.findAllByOrderByBlogMetadataWrittenAtDesc(pageable);
+    public Slice<TechBlogPost> readAll(List<TechBlogCode> select, String title, Pageable pageable){
+        return techBlogRepository.findBy(select, title, pageable);
     }
+
 }
