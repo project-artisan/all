@@ -16,11 +16,6 @@ public interface TechBlogRepository extends JpaRepository<TechBlogPost, Long>, T
 
     Slice<TechBlogPost> findAllByOrderByBlogMetadataWrittenAtDesc(Pageable pageable);
 
-    @Lock(LockModeType.PESSIMISTIC_WRITE)
-    @Query("select p from TechBlogPost p where p.id = :id")
-    Optional<TechBlogPost> findByIdWithLock(@Param("id") Long id);
-
-
     boolean existsByBlogMetadataCodeAndBlogMetadataUrlSuffix(TechBlogCode techBlogCode, String urlSuffix);
 
     @Query("""
@@ -60,4 +55,17 @@ public interface TechBlogRepository extends JpaRepository<TechBlogPost, Long>, T
         }
         return searchBy(select, title, pageable);
     }
+
+    default TechBlogPost getById(Long id){
+        // TODO 예외처리 추가
+        return findById(id)
+                .orElseThrow();
+    }
+
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    @Query("SELECT t FROM TechBlogPost t WHERE t.id = :id")
+    Optional<TechBlogPost> findByIdWithLock(@Param("id") Long id);
+
+
+
 }
