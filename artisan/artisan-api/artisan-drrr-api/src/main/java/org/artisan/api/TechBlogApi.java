@@ -6,6 +6,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.artisan.attributes.Auth;
 import org.artisan.core.TechBlogCode;
 import org.artisan.core.User;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/blogs")
@@ -54,13 +56,14 @@ public class TechBlogApi {
                 .toList();
     }
 
+
+    // TODO 동작 원리 분석
     @GetMapping("/read/{blogId}")
     public ResponseEntity<?> redirectBlogURL(
-            @PathVariable ("blogId") Long blogId,
-            @Auth User user
+            @PathVariable ("blogId") Long blogId
     ) throws URISyntaxException {
 
-        var blog = techBlogService.read(user, blogId);
+        var blog = techBlogService.read(blogId);
 
         URI redirectUri = new URI(blog.getBlogMetadata().blogLink().toUrl());
         HttpHeaders httpHeaders = new HttpHeaders();
