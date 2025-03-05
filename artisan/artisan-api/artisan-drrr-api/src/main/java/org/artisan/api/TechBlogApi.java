@@ -2,22 +2,22 @@ package org.artisan.api;
 
 import static org.artisan.core.TechBlogCode.BASE;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.artisan.attributes.Auth;
 import org.artisan.core.TechBlogCode;
 import org.artisan.core.User;
-import org.artisan.domain.TechBlogPost;
-import org.artisan.payload.GroupingCategoryCountResponse;
 import org.artisan.payload.SearchTechBlogPostRequest;
 import org.artisan.payload.SearchTechBlogPostResponse;
 import org.artisan.payload.TechBlogCodeResponse;
-import org.artisan.payload.TechBlogListResponse;
 import org.artisan.request.SearchRequest;
 import org.artisan.service.TechBlogService;
-import org.springframework.core.annotation.MergedAnnotations.Search;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -53,25 +53,20 @@ public class TechBlogApi {
                 .map(TechBlogCodeResponse::from)
                 .toList();
     }
-/*
-    @GetMapping
-    public TechBlogListResponse collectBlogs() {
-        return null;
-    }
 
-    @GetMapping("/{blogId}/categories")
-    public List<GroupingCategoryCountResponse> getBlogCategories(@PathVariable("blogId") Long blogId) {
-        return null;
-    }
+    @GetMapping("/read/{blogId}")
+    public ResponseEntity<?> redirectBlogURL(
+            @PathVariable ("blogId") Long blogId,
+            @Auth User user
+    ) throws URISyntaxException {
 
-    @GetMapping("/{blogId}/posts")
-    Slice<SearchTechBlogPostResponse> getBlogPosts(
-            @PathVariable Long blogId,
-            Pageable pageable
-    ) {
-        return null;
-    }
+        var blog = techBlogService.read(user, blogId);
 
-*/
+        URI redirectUri = new URI(blog.getBlogMetadata().blogLink().toUrl());
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setLocation(redirectUri);
+
+        return new ResponseEntity<>(httpHeaders, HttpStatus.MOVED_PERMANENTLY);
+    }
 
 }

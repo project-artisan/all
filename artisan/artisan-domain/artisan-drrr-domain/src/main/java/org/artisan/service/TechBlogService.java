@@ -25,12 +25,13 @@ public class TechBlogService {
 
 
     @Transactional
-    public void updateViewCount(@Nullable User user, Long techBlogId) {
+    public TechBlogPost read(User user, Long techBlogId){
         // TODO null 처리 할 것
         var blog = techBlogRepository.findByIdWithLock(techBlogId)
                 .orElseThrow();
 
         blog.increaseViewCount();
+        return blog;
     }
 
 }
