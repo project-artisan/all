@@ -2,7 +2,7 @@
 dependencies {
     implementation project(":artisan-core:artisan-core-web")
     implementation project(":artisan-core:artisan-core-default")
-    implementation project(":artisan-domain:artisan-core-domain")
+    implementation 'software.amazon.awssdk:s3:2.20.26'
 
-    testImplementation "org.springframework.boot:spring-boot-starter-test"
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
