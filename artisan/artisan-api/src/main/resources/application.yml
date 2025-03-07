@@ -5,10 +5,12 @@ spring:
       - mysql-db.yml
       - api-security.yml
       - infra-oauth-github.yml
+      - ai-client.yml
+      - traffic-hunter.yml
 
   profiles:
-
     active: local-dev
+
     group:
       local: local
       local-dev: local-dev
