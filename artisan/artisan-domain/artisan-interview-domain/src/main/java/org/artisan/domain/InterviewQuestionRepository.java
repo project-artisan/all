@@ -24,8 +24,7 @@ public interface InterviewQuestionRepository extends JpaRepository<InterviewQues
 
     @Query("""
       select iq from InterviewQuestion iq
-      join fetch iq.tailQuestions.value
-      
+        left join fetch iq.tailQuestions.value
       where iq.interview.id = :interviewId
       """)
     List<InterviewQuestion> findAllByAssociate(@Param("interviewId") Long interviewId);
