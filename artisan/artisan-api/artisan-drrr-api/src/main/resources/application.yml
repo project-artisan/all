@@ -1,13 +1,10 @@
 
 spring:
-
-
   config:
     import:
       - mysql-db.yml
       - api-security.yml
       - infra-oauth-github.yml
-
 
   profiles:
 
