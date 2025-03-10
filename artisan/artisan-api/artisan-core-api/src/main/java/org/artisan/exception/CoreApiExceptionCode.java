@@ -9,7 +9,7 @@ import org.springframework.http.HttpStatus;
 @Getter
 @RequiredArgsConstructor
 public enum CoreApiExceptionCode implements HttpExceptionCode {
-    UNAUTHORIZED_MEMBER(HttpStatus.FORBIDDEN, "A01", "권한 없는 사용자입니다", LogLevel.WARN),
+    UNAUTHORIZED_MEMBER(HttpStatus.UNAUTHORIZED, "A01", "권한 없는 사용자입니다", LogLevel.WARN),
 
     NOT_FOUND_ACCESS_TOKEN("A02", "access token이 존재하지 않습니다."),
     NOT_FOUND_REFRESH_TOKEN("A03", "refresh token이 존재하지 않습니다."),

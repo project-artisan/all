@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 import org.apache.logging.log4j.util.Strings;
 import org.artisan.core.TechBlogCode;
+import org.artisan.exception.DrrrDomainException;
+import org.artisan.exception.DrrrDomainExceptionCode;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -57,9 +59,8 @@ public interface TechBlogRepository extends JpaRepository<TechBlogPost, Long>, T
     }
 
     default TechBlogPost getById(Long id){
-        // TODO 예외처리 추가
         return findById(id)
-                .orElseThrow();
+                .orElseThrow(() -> new DrrrDomainException(DrrrDomainExceptionCode.NOT_FOUND_TECHBLOG_POST));
     }
 
     @Lock(LockModeType.PESSIMISTIC_WRITE)

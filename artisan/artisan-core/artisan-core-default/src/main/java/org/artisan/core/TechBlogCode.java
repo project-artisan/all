@@ -10,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.artisan.core.exception.CoreException;
 
 
-// TODO 블로그, url, 및 상태 분리하기
 @Getter
 @RequiredArgsConstructor
 public enum TechBlogCode {

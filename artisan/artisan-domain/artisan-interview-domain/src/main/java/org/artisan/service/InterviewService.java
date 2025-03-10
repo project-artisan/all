@@ -17,6 +17,8 @@ import org.artisan.domain.MemberRepository;
 import org.artisan.domain.QuestionSetRepository;
 import org.artisan.domain.TailQuestion;
 import org.artisan.domain.TailQuestionRepository;
+import org.artisan.exception.InterviewDomainException;
+import org.artisan.exception.InterviewDomainExceptionCode;
 import org.jspecify.annotations.Nullable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -81,7 +83,6 @@ public class InterviewService {
 
     @Transactional(readOnly = true)
     public CurrentInterview loadByCurrentProblem(User user, Long interviewId) {
-        // TODO 내 인터뷰가 아닌 것도 조회가 되어야 하는가?
         var interview = interviewRepository.getByIdAndMemberId(interviewId, user.id());
         var interviewQuestion = interview.getCurrentProblem();
 
@@ -105,12 +106,11 @@ public class InterviewService {
     public Interview getDetail(User user, Long interviewId){
         // TODO validation
         return interviewRepository.findAllWithQuestion(user.id(), interviewId)
-                .orElseThrow();
+                .orElseThrow(() -> new InterviewDomainException(InterviewDomainExceptionCode.NOT_FOUND_INTERVIEW));
     }
 
     @Transactional(readOnly = true)
     public Interview getInterviewResult(User user, Long interviewId) {
-        // TODO validation
         var interview = interviewRepository.getByIdAndMemberId(interviewId, user.id());
 
         interview.setInterviewQuestions(interviewQuestionRepository.findAllByAssociate(interviewId));

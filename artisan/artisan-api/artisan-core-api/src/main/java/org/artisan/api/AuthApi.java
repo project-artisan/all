@@ -3,6 +3,7 @@ package org.artisan.api;
 import static org.springframework.http.HttpHeaders.SET_COOKIE;
 
 import jakarta.servlet.http.HttpServletResponse;
+import java.net.http.HttpResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.artisan.api.payload.request.OAuthProfileRequest;
@@ -74,9 +75,12 @@ public class AuthApi {
     @PostMapping("/logout")
     public void logout(
             @Auth User user,
+            HttpServletResponse response,
             @CookieValue("refreshToken") String refreshToken
     ) {
+
         authService.logout(user, refreshToken);
+        response.addHeader(SET_COOKIE, cookieProvider.expireCookie().toString());
     }
 
 }

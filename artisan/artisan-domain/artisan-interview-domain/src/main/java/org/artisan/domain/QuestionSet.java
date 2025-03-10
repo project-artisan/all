@@ -14,6 +14,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.artisan.core.domain.BaseEntity;
+import org.artisan.exception.InterviewDomainException;
+import org.artisan.exception.InterviewDomainExceptionCode;
 
 @Slf4j
 @Getter
@@ -35,17 +37,13 @@ public class QuestionSet extends BaseEntity {
     private Category category;
 
     public List<Question> extractQuestions(int count) {
-        // TODO 에러 처리해주기
-
-//        INTERVIEW_CREATE_FAIL.invokeByCondition(count <= 0);
-//        INTERVIEW_CREATE_FAIL.invokeByCondition(questions.isEmpty());
-//        INTERVIEW_CREATE_FAIL.invokeByCondition(questions.size() < count);
+        if(count <= 0 || questions.isEmpty() || questions.size() < count) {
+            throw new InterviewDomainException(InterviewDomainExceptionCode.FAIL_INTERVIEW_CREATE);
+        }
 
         if (questions.hasSameSize(count)) {
             return questions.getOrderedSequenceValue();
         }
-
-        log.info("{}", questions.getValue());
 
         return questions.shuffle()
                 .subList(0, count)

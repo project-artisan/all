@@ -6,6 +6,9 @@ import org.artisan.core.TechBlogCode;
 import org.artisan.core.User;
 import org.artisan.domain.TechBlogPost;
 import org.artisan.domain.TechBlogRepository;
+import org.artisan.exception.DrrrDomainException;
+import org.artisan.exception.DrrrDomainExceptionCode;
+import org.hibernate.sql.results.DomainResultCreationException;
 import org.jspecify.annotations.Nullable;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -26,9 +29,8 @@ public class TechBlogService {
 
     @Transactional
     public void updateViewCount(@Nullable User user, Long techBlogId) {
-        // TODO null 처리 할 것
         var blog = techBlogRepository.findByIdWithLock(techBlogId)
-                .orElseThrow();
+                .orElseThrow(() -> new DrrrDomainException(DrrrDomainExceptionCode.NOT_FOUND_TECHBLOG_POST));
 
         blog.increaseViewCount();
     }
