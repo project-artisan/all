@@ -50,10 +50,11 @@ public class Interview extends BaseEntity {
 
     @Nullable
     public InterviewQuestion getCurrentProblem() {
-        // TODO index 범위 조절
         if(progress.isDone()) {
             return null;
         }
+
+
         return interviewQuestions.get(progress.getIndex());
     }
 
@@ -68,6 +69,7 @@ public class Interview extends BaseEntity {
         return interviewQuestion.submit(answer, aiFeedback);
     }
 
+    // 연관관계 편의 메서드 -> 읽기 전용 쿼리 만들어야 할듯..?
     public void setInterviewQuestions(List<InterviewQuestion> interviewQuestions) {
         // TODO 이거 고치자..
         this.interviewQuestions = new InterviewQuestions(interviewQuestions);
