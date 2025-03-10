@@ -18,5 +18,15 @@ public class CookieProvider {
                 .path("/")
                 .build();
     }
+
+    public ResponseCookie expireCookie(){
+        return ResponseCookie.from(REFRESH_TOKEN_KEY, "")
+                .maxAge(0)
+                .sameSite("None")
+                .secure(true)
+                .httpOnly(true)
+                .path("/")
+                .build();
+    }
 }
 
