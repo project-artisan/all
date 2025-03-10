@@ -4,8 +4,16 @@ public interface CoreExceptionCode {
 
     String getIdentifier();
 
-    String getPrefix();
 
     String getMessage();
+
+    default String getPrefix() {
+        throw new UnsupportedOperationException();
+    };
+
+
+    default String getExceptionCode(){
+        return getPrefix() + "-" + getIdentifier();
+    }
 
 }
