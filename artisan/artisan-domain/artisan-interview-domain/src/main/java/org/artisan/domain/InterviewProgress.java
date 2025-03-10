@@ -8,6 +8,8 @@ import java.util.Objects;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.artisan.exception.InterviewDomainException;
+import org.artisan.exception.InterviewDomainExceptionCode;
 
 
 @Getter
@@ -43,10 +45,9 @@ public class InterviewProgress {
     }
 
     public void next() {
-        // TODO 검증 로직 추가하기
-//        INTERVIEW_STATE_IS_DONE.invokeByCondition(interviewState != InterviewState.PROGRESS);
-//        INTERVIEW_STATE_DID_NOT_MATCH.invokeByCondition(index != currentIndex);
-//        INTERVIEW_STATE_IS_DONE.invokeByCondition(index == size);
+        if(status != InterviewStatus.PROGRESS || index == size) {
+            throw new InterviewDomainException(InterviewDomainExceptionCode.INTERVIEW_IS_DONE);
+        }
 
         this.index += 1;
 
