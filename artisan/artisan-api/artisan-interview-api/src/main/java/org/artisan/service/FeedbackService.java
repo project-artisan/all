@@ -25,7 +25,6 @@ public class FeedbackService {
     private final InterviewQuestionRepository interviewQuestionRepository;
 
     public TailQuestion submit(User user, Long interviewId, InterviewSubmitRequest request){
-        log.info("{}" ,request);
         var interviewQuestion = interviewQuestionRepository.getById(request.interviewQuestionId());
         var question = interviewQuestion.getQuestion().getMetadata().content();
 

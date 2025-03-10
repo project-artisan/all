@@ -3,17 +3,16 @@ package org.artisan.exception;
 import lombok.extern.slf4j.Slf4j;
 import org.artisan.core.exception.CoreException;
 import org.artisan.core.exception.CoreExceptionCode;
+import org.artsian.web.core.exception.ExceptionResponse;
 import org.artsian.web.core.exception.HttpExceptionCode;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @Slf4j
 @RestControllerAdvice
 public class CoreApiExceptionHandler {
-
 
     @ExceptionHandler(CoreException.class)
     ResponseEntity<ExceptionResponse> corExceptionHandler(CoreException coreException) {
@@ -60,8 +59,5 @@ public class CoreApiExceptionHandler {
         }
     }
 
-    public record ExceptionResponse(String code, String message){
-
-    }
 
 }

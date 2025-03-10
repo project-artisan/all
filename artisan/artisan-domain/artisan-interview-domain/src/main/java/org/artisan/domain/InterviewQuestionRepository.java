@@ -1,6 +1,8 @@
 package org.artisan.domain;
 
 import java.util.List;
+import org.artisan.exception.InterviewDomainException;
+import org.artisan.exception.InterviewDomainExceptionCode;
 import org.jspecify.annotations.NonNull;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -31,6 +33,6 @@ public interface InterviewQuestionRepository extends JpaRepository<InterviewQues
 
     default InterviewQuestion getById(@NonNull Long interviewQuestionId){
         return findById(interviewQuestionId)
-                .orElseThrow();
+                .orElseThrow(() -> new InterviewDomainException(InterviewDomainExceptionCode.NOT_FOUND_INTERVIEW_QUESTION));
     }
 }

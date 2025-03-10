@@ -1,6 +1,8 @@
 package org.artisan.domain;
 
 import java.util.Optional;
+import org.artisan.exception.InterviewDomainException;
+import org.artisan.exception.InterviewDomainExceptionCode;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -27,13 +29,12 @@ public interface InterviewRepository extends JpaRepository<Interview, Long> {
 
     default Interview getById(Long interviewId){
         return findById(interviewId)
-                .orElseThrow();
+                .orElseThrow(() -> new InterviewDomainException(InterviewDomainExceptionCode.NOT_FOUND_INTERVIEW));
     }
 
     default Interview getByIdAndMemberId(Long interviewId, Long memberId){
-        // TODO Error 처리
         return findByIdAndMemberId(interviewId, memberId)
-                .orElseThrow();
+                .orElseThrow(() -> new InterviewDomainException(InterviewDomainExceptionCode.NOT_FOUND_INTERVIEW));
     }
 
     @Query("""
