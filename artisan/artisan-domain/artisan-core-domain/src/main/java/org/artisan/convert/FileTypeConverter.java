@@ -12,7 +12,7 @@ public class FileTypeConverter implements AttributeConverter<FileType, String> {
         if(fileType == null){
             return "";
         }
-        return fileType.name();
+        return fileType.getValue();
     }
 
     @Override
