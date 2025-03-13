@@ -20,6 +20,7 @@ include 'artisan-infra:artisan-infra-traffic-hunter'
 include 'artisan-infra:artisan-s3-client'
 
 include 'artisan-batch:artisan-techblog-batch'
+include 'artisan-batch:artisan-drrr-utility-batch'
 
 include 'artisan-utils:artisan-fluent-crawler'
 
