@@ -3,6 +3,8 @@ package org.artisan.reader.blog;
 import static java.util.stream.Collectors.collectingAndThen;
 import static java.util.stream.Collectors.toList;
 
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.artisan.core.TechBlogCode;
@@ -29,6 +31,7 @@ import java.util.regex.Pattern;
 import org.openqa.selenium.By;
 
 
+// TODO 페이지를 열고 확인해야 하는 크롤링
 @Slf4j
 @Configuration
 public class DevSistersCrawler {
@@ -64,9 +67,17 @@ public class DevSistersCrawler {
 
     ContentsReader<ExternalBlogPosts> contentsReader() {
         return driver -> {
-            var articles = driver.findElements(By.className("group/item"));
+            var articles = driver.findElements(By.cssSelector("li"));
             return articles.stream()
-                    .map(e -> e.findElement(By.tagName("a")))
+                    .map(li -> {
+                        var t=  CrawlingUtils.findByElement(() -> li.findElement(By.cssSelector("a")));
+                        if(t.isEmpty()) {
+                            log.info("{}", li.getAttribute("innerHTML"));
+                            return null;
+                        }
+                        return t.get();
+                    })
+                    .filter(Objects::nonNull)
                     .map(this::parseArticle)
                     .collect(collectingAndThen(Collectors.toList(), ExternalBlogPosts::new));
         };
