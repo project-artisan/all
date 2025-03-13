@@ -2,7 +2,9 @@ package org.artisan.infra.s3;
 
 import java.util.Objects;
 import lombok.Builder;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public record ImageUploadRequest(
         String imageUrl,
         ImageIdentifier imageIdentifier,
