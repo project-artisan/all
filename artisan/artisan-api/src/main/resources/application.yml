@@ -7,6 +7,7 @@ spring:
       - infra-oauth-github.yml
       - ai-client.yml
       - traffic-hunter.yml
+      - drrr-api.yml
 
   profiles:
     active: local-dev
