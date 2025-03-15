@@ -10,7 +10,6 @@ import java.time.LocalDate;
 import java.util.Objects;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import org.apache.logging.log4j.util.Strings;
 import org.artisan.convert.TechBlogCodeConverter;
 import org.artisan.core.TechBlogCode;
 import org.artisan.domain.file.ExternalURL;
@@ -61,14 +60,13 @@ public class BlogMetadata {
         this.code = code;
     }
 
-    public String getThumbnailUrl() {
-        var thumbnailUrl = thumbnail.toUrl();
+    public ExternalURL getThumbnail() {
 
-        if (Strings.isBlank(thumbnailUrl)) {
-            return code.getMetadata().getLogo();
+        if(thumbnail == null) {
+            return null;
         }
 
-        return thumbnailUrl;
+        return thumbnail;
     }
 
     public String title() {

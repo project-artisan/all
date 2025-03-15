@@ -13,7 +13,6 @@ import org.artisan.domain.TechBlogPost;
 import org.artisan.domain.TechBlogRepository;
 import org.artisan.domain.TemporalTechBlogPost;
 import org.artisan.domain.TemporalTechBlogPostRepository;
-import org.artisan.proxy.ProxyItemReader;
 import org.artisan.reader.CrawlerItemReaderFactory;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -23,7 +22,6 @@ import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.core.step.tasklet.Tasklet;
-import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.database.JpaCursorItemReader;
 import org.springframework.batch.item.database.builder.JpaCursorItemReaderBuilder;
@@ -144,24 +142,30 @@ public class WebCrawlerBatchConfiguration {
                 .build();
     }
 
-    @Bean("TemporalTechBlogJpaCursorItemWriter")
+    @Bean("TechBlogJpaCursorItemWriter")
     ItemWriter<TechBlogPost> techBlogPostItemWriter(){
-        return chunk -> chunk.getItems().forEach(techBlogPost -> {
-            final Key key = new Key(techBlogPost.getBlogMetadata().urlSuffix(), techBlogPost.getBlogMetadata().code());
-            crawledTechBlogPostRepository.ifPresentOrElse(key,
-                    () -> crawledTechBlogPostRepository.remove(key),
-                    () -> techBlogRepository.delete(techBlogPost));
-        });
+        return chunk -> {
+            chunk.getItems().forEach(techBlogPost -> {
+                final Key key = new Key(techBlogPost.getBlogMetadata().urlSuffix(), techBlogPost.getBlogMetadata().code());
+                crawledTechBlogPostRepository.ifPresentOrElse(key,
+                        () -> crawledTechBlogPostRepository.remove(key),
+                        () -> techBlogRepository.delete(techBlogPost));
+            });
+        };
     }
 
     @Bean("TemporalTechBlogJpaCursorItemWriter")
     ItemWriter<TemporalTechBlogPost> temporalTechBlogPostItemWriter(){
-        return chunk -> chunk.getItems().forEach(temporalTechBlogPost -> {
-            Key key = new Key(temporalTechBlogPost.getUrlSuffix(), temporalTechBlogPost.getTechBlogCode());
-            crawledTechBlogPostRepository.ifPresentOrElse(key,
-                    () -> crawledTechBlogPostRepository.remove(key),
-                    () -> temporalTechBlogPostRepository.delete(temporalTechBlogPost));
-        });
+        return chunk -> {
+//            log.info(">>>>>> {}", chunk);
+//            chunk.getItems().forEach(temporalTechBlogPost -> {
+//                log.info(">>>>>>> {}", temporalTechBlogPost);
+//                Key key = new Key(temporalTechBlogPost.getUrlSuffix(), temporalTechBlogPost.getTechBlogCode());
+//                crawledTechBlogPostRepository.ifPresentOrElse(key,
+//                        () -> crawledTechBlogPostRepository.remove(key),
+//                        () -> temporalTechBlogPostRepository.delete(temporalTechBlogPost));
+//            });
+        };
     }
 
     @Bean()

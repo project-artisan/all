@@ -1,0 +1,13 @@
+
+
+cdn:
+  url: https://d2idtq932vv5f9.cloudfront.net/
+  tech-blog-thumbnail: test/
+
+---
+
+
+spring.config.activate.on-profile: prod
+
+cdn:
+  tech-blog-thumbnail: techblog/thumbnail/

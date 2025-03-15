@@ -44,7 +44,12 @@ public class AIClient{
         }
     }
 
-    public record FeedbackResponse(int score, String feedback, String tailQuestion, List<String> referenceLinks) {
+    public record FeedbackResponse(
+            int score,
+            String feedback,
+            String tailQuestion,
+            List<String> referenceLinks
+    ) {
 
     }
 
