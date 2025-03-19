@@ -7,11 +7,19 @@ spring:
       - infra-oauth-github.yml
       - ai-client.yml
       - traffic-hunter.yml
+      - drrr-api.yml
+      - api-docs.yml
 
   profiles:
+
     active: local-dev
 
     group:
       local: local
       local-dev: local-dev
       prod: prod
+      stage: stage
+  threads:
+    virtual:
+      enabled: true
+

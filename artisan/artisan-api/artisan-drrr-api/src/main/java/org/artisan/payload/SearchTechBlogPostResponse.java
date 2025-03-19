@@ -1,19 +1,18 @@
 package org.artisan.payload;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import lombok.Builder;
 import org.artisan.core.TechBlogCode;
 import org.artisan.domain.TechBlogPost;
-import org.artisan.domain.post.BlogMetadata;
+import org.artisan.domain.file.ExternalURL;
 
 @Builder
 public record SearchTechBlogPostResponse(
 
         Long id,
         String title,
-        String thumbnail,
+        ExternalURL thumbnail,
         String description,
         String link,
         TechBlogCode techBlog,
@@ -30,7 +29,7 @@ public record SearchTechBlogPostResponse(
         return new SearchTechBlogPostResponse(
                 post.getId(),
                 post.getBlogMetadata().title(),
-                post.getBlogMetadata().getThumbnailUrl(),
+                post.getBlogMetadata().getThumbnail(),
                 post.getBlogMetadata().description(),
                 post.getBlogMetadata().blogLink().toUrl(),
                 post.getBlogMetadata().code(),

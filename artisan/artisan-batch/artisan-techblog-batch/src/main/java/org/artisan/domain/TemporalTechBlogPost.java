@@ -85,7 +85,6 @@ public class TemporalTechBlogPost extends BaseEntity {
     }
 
     public TechBlogPost toTechBlogPost() {
-        log.info("{}", this);
         var metadata = new BlogMetadata(
                 title,
                 this.summary,
@@ -95,7 +94,6 @@ public class TemporalTechBlogPost extends BaseEntity {
                 ExternalURL.from(this.url),
                 this.techBlogCode
         );
-        log.info("{}", metadata);
         return TechBlogPost.from(metadata);
     }
 }

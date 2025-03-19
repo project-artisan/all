@@ -11,6 +11,9 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.artisan.core.domain.BaseEntity;
+import org.artisan.exception.InterviewDomainException;
+import org.artisan.exception.InterviewDomainExceptionCode;
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 @Getter
@@ -61,6 +64,9 @@ public class TailQuestion extends BaseEntity {
         );
     }
 
+
+
+
     @Nullable
     public TailQuestion submit(Answer answer, AIFeedback aiFeedback) {
         switch (answer.state()) {
@@ -72,5 +78,26 @@ public class TailQuestion extends BaseEntity {
         this.answer = answer;
         return interviewQuestion.createTailQuestion(aiFeedback);
     }
+
+    public void submit(@NonNull Answer answer) {
+        if(this.answer.state() != AnswerState.INIT) {
+            throw new InterviewDomainException(InterviewDomainExceptionCode.FAIL_SUBMIT_ANSWER_TO_IQ);
+        }
+        this.answer = answer;
+    }
+
+    @Nullable
+    public TailQuestion mark(@NonNull AIFeedback aiFeedback) {
+        if(answer.state() != AnswerState.PROGRESS) {
+            // TODO 유효하지 않은 답변 에러코드 처리
+            throw new InterviewDomainException(InterviewDomainExceptionCode.FAIL_INTERVIEW_CREATE);
+        }
+
+        this.aiFeedback = aiFeedback;
+        this.answer = answer.complete();
+
+        return interviewQuestion.createTailQuestion(aiFeedback);
+    }
+
 }
 

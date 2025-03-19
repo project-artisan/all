@@ -13,6 +13,7 @@ public class DocsConfig {
                 .title("artisan")
                 .description("Artisan Swagger UI")
                 .version("0.0.1")
+                .enableJWT(true)
                 .build();
     }
 }

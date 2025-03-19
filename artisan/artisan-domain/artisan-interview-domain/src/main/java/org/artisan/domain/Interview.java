@@ -58,12 +58,35 @@ public class Interview extends BaseEntity {
         return interviewQuestions.get(progress.getIndex());
     }
 
+    public Long submit(
+            Answer answer
+    ) {
+        var interviewQuestion = interviewQuestions.get(progress.getIndex());
+
+        interviewQuestion.submit(answer);
+
+        return interviewQuestion.getId();
+    }
+
+    @Nullable
+    public TailQuestion mark(
+            AIFeedback aiFeedback
+    ) {
+        var interviewQuestion = interviewQuestions.get(progress.getIndex());
+
+        progress.next();
+
+        return interviewQuestion.mark(aiFeedback);
+    }
+
+
     @Nullable
     public TailQuestion submit(
             Answer answer,
             AIFeedback aiFeedback
     ) {
         var interviewQuestion = interviewQuestions.get(progress.getIndex());
+
         progress.next();
 
         return interviewQuestion.submit(answer, aiFeedback);

@@ -102,7 +102,7 @@ public class NaverD2Crawler {
                     .mapToInt(Integer::parseInt)
                     .max()
                     .orElseThrow(IllegalArgumentException::new);
-            return PaginationInformation.lastPage(maxPage);
+            return PaginationInformation.lastPage(33);
         };
     }
 }

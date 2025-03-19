@@ -25,4 +25,8 @@ public record Answer(
     public static Answer of(AnswerState answerState, String content, Integer timeToAnswer) {
         return new Answer(answerState, content, timeToAnswer);
     }
+
+    public Answer complete() {
+        return new Answer(AnswerState.COMPLETE, content, timeToAnswer) ;
+    }
 }

@@ -63,7 +63,6 @@ public class SigninArgumentResolver implements HandlerMethodArgumentResolver {
             }
             return Optional.of(Arrays.stream(cookies)
                     .filter(cookie -> CookieProvider.REFRESH_TOKEN_KEY.equals(cookie.getName()))
-                            .peek(r -> log.info("{}", r))
                     .map(Cookie::getValue)
                     .map(jwtProvider::decodeRefreshToken)
                     .map(RefreshTokenClaims::memberId)

@@ -21,9 +21,7 @@ public class TailQuestionService {
 
     @Nullable
     public TailQuestion submit(User user, Long tailQuestionId, Answer answer, AIFeedback aiFeedback){
-
         var tailQuestion = tailQuestionRepository.getByIdAndMemberId(tailQuestionId, user.id());
-
         var newTailQuestion = tailQuestion.submit(answer, aiFeedback);
 
         if(newTailQuestion == null) {
@@ -34,4 +32,17 @@ public class TailQuestionService {
     }
 
 
+    public void mark(User user, Long tailQuestionId, AIFeedback aiFeedback){
+        var tailQuestion = tailQuestionRepository.getByIdAndMemberId(tailQuestionId, user.id());
+        var newTailQuestion = tailQuestion.mark(aiFeedback);
+
+        if(newTailQuestion != null) {
+            tailQuestionRepository.save(tailQuestion);
+        }
+    }
+
+
+    public TailQuestion checkState(User user, Long tailQuestionId) {
+        return tailQuestionRepository.getByIdAndMemberId(tailQuestionId, user.id());
+    }
 }

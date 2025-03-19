@@ -17,7 +17,6 @@ public class MemberOnlyValidator {
 
     @Before("@annotation(org.artisan.attributes.MemberOnly)")
     public void check(final JoinPoint joinPoint) {
-        log.info("{}", joinPoint.getArgs());
         Arrays.stream(joinPoint.getArgs())
                 .filter(User.class::isInstance)
                 .map(User.class::cast)

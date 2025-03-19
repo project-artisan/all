@@ -5,6 +5,7 @@ spring:
       - mysql-db.yml
       - api-security.yml
       - infra-oauth-github.yml
+      - drrr-api.yml
 
   profiles:
 
@@ -13,3 +14,4 @@ spring:
       local: local
       local-dev: local-dev
       prod: prod
+

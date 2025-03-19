@@ -98,17 +98,5 @@ public class InterviewApi {
                 .map(MyInterviewResponse::from));
     }
 
-    @MemberOnly
-    @PostMapping("/feedback")
-    public FeedbackResponse requestFeedback(
-            @Auth User user,
-            @RequestBody FeedbackRequest request
-    ) {
-        return null;
-//        return feedbackProvider.execute(request.question, request.answer, request.tailQuestions);
-    }
-
-    public record FeedbackRequest(String question, String answer, List<String> tailQuestions) {
-    }
 
 }
