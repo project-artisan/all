@@ -1,6 +1,7 @@
 package org.artisan.domain;
 
 import java.util.List;
+import java.util.Optional;
 import org.artisan.exception.InterviewDomainException;
 import org.artisan.exception.InterviewDomainExceptionCode;
 import org.jspecify.annotations.NonNull;
@@ -31,8 +32,16 @@ public interface InterviewQuestionRepository extends JpaRepository<InterviewQues
       """)
     List<InterviewQuestion> findAllByAssociate(@Param("interviewId") Long interviewId);
 
+
+    Optional<InterviewQuestion> findByIdAndMemberId(Long interviewQuestionId, Long memberId);
+
     default InterviewQuestion getById(@NonNull Long interviewQuestionId){
         return findById(interviewQuestionId)
+                .orElseThrow(() -> new InterviewDomainException(InterviewDomainExceptionCode.NOT_FOUND_INTERVIEW_QUESTION));
+    }
+
+    default InterviewQuestion getById(@NonNull Long interviewQuestionId, @NonNull Long memberId){
+        return findByIdAndMemberId(interviewQuestionId, memberId)
                 .orElseThrow(() -> new InterviewDomainException(InterviewDomainExceptionCode.NOT_FOUND_INTERVIEW_QUESTION));
     }
 }
