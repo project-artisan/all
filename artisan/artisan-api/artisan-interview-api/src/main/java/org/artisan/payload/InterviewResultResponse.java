@@ -13,7 +13,8 @@ public record InterviewResultResponse(
         Long interviewId,
         InterviewStatus interviewState,
         String title,
-        List<InterviewQuestionResult> interviewQuestions
+        List<InterviewQuestionResult> interviewQuestions,
+        ScoreGroup scoreGroup
 
 ){
 
@@ -22,7 +23,8 @@ public record InterviewResultResponse(
                 interviewResult.getId(),
                 interviewResult.getProgress().getStatus(),
                 interviewResult.getMetadata().title(),
-                InterviewQuestionResult.from(interviewResult.getInterviewQuestions())
+                InterviewQuestionResult.from(interviewResult.getInterviewQuestions()),
+                ScoreGroup.from(interviewResult.getScoreGroup())
         );
     }
 

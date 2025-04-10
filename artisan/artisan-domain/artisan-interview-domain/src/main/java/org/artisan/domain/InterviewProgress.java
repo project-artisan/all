@@ -26,7 +26,7 @@ public class InterviewProgress {
     @Enumerated(EnumType.STRING)
     private InterviewStatus status;
 
-    public InterviewProgress(
+    private InterviewProgress(
             int index,
             int size,
             InterviewStatus status
@@ -45,6 +45,7 @@ public class InterviewProgress {
     }
 
     public void next() {
+
         if(status != InterviewStatus.PROGRESS || index == size) {
             throw new InterviewDomainException(InterviewDomainExceptionCode.INTERVIEW_IS_DONE);
         }
