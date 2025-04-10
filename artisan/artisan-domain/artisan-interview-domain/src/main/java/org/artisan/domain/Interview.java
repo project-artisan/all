@@ -10,7 +10,6 @@ import java.util.List;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.artisan.core.domain.BaseEntity;
 import org.jspecify.annotations.Nullable;
 
@@ -36,6 +35,10 @@ public class Interview extends BaseEntity {
     @Embedded
     private InterviewQuestions interviewQuestions = InterviewQuestions.empty();
 
+    @Embedded
+    private InterviewScore scoreGroup;
+
+
     public Interview(
             Member member,
             InterviewMetadata metadata,
@@ -46,6 +49,7 @@ public class Interview extends BaseEntity {
         this.metadata = metadata;
         this.progress = progress;
         this.setting = setting;
+        this.scoreGroup = new InterviewScore();
     }
 
     @Nullable
@@ -85,11 +89,26 @@ public class Interview extends BaseEntity {
             Answer answer,
             AIFeedback aiFeedback
     ) {
+        increaseScore(answer, aiFeedback);
+
         var interviewQuestion = interviewQuestions.get(progress.getIndex());
 
         progress.next();
 
         return interviewQuestion.submit(answer, aiFeedback);
+    }
+
+    private void increaseScore(Answer answer, AIFeedback aiFeedback){
+        switch(answer.state()) {
+            case COMPLETE -> {
+                if (aiFeedback.score() >= 80) {
+                    scoreGroup.success();
+                } else {
+                    scoreGroup.fail();
+                }
+            }
+            case PASS -> scoreGroup.pass();
+        }
     }
 
     // 연관관계 편의 메서드 -> 읽기 전용 쿼리 만들어야 할듯..?
