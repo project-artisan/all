@@ -1,20 +1,5 @@
 management:
   endpoints:
-    jmx:
+    web:
       exposure:
         include: "*"
-
-server:
-  tomcat:
-    mbeanregistry:
-      enabled: true
-
-spring:
-  datasource:
-    hikari:
-      register-mbeans: true
-    tomcat:
-      jmx-enabled: true
-
-  jmx:
-    unique-names: true
