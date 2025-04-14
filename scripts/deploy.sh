@@ -4,7 +4,7 @@ DEPLOY_LOG_PATH=/var/log/deploy/deploy.log
 
 echo $(pwd) >> $DEPLOY_LOG_PATH
 
-JAR_PATH=$(ls /home/ec2-user/app/artisan/artisan-api/build/libs/artisan-api-*.jar | grep -v "plain" | head -n 1)
+JAR_PATH=$(ls /home/ec2-user/app/artisan/artisan-api/build/libs/artisan-api-*.jar | grep -v "plain" | grep -v "test-fixtures" | head -n 1)
 
 echo "jar path" >> $DEPLOY_LOG_PATH
 echo $JAR_PATH >> $DEPLOY_LOG_PATH
