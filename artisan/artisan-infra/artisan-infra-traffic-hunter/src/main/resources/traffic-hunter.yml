@@ -3,3 +3,9 @@ management:
     web:
       exposure:
         include: "*"
+
+
+
+loki:
+  url: ${LOKI_URL}
+  tenant: "default"
