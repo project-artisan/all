@@ -24,4 +24,5 @@ else
 fi
 
 echo ">>> APP start" >> $DEPLOY_LOG_PATH
-nohup java -jar ./application.jar --spring.profiles.active=prod --server.port=8080 > /var/local/app.log 2>&1 &
+
+nohup java -jar ./application.jar -Dhost.ip=$(hostname -I | awk '{print $1}') --spring.profiles.active=prod --server.port=8080 > /var/local/app.log 2>&1 &
