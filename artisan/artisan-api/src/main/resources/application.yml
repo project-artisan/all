@@ -22,9 +22,5 @@ spring:
       prod: prod
       stage: stage
 
-  threads:
-    virtual:
-      enabled: true
-
 
 
