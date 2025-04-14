@@ -1,0 +1,4 @@
+
+discord:
+  web-hook-key: ${DISCORD_WEB_HOOKS}
+
