@@ -7,6 +7,7 @@ import org.artsian.web.core.exception.ExceptionResponse;
 import org.artsian.web.core.exception.HttpExceptionCode;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
@@ -30,7 +31,7 @@ public class CoreApiExceptionHandler {
 
     }
 
-    @ExceptionHandler(NoResourceFoundException.class)
+    @ExceptionHandler({NoResourceFoundException.class, HttpRequestMethodNotSupportedException.class})
     ResponseEntity<ExceptionResponse> ignore(){
         return ResponseEntity.notFound().build();
     }
