@@ -24,6 +24,12 @@
     <appender name="LOKI" class="com.github.loki4j.logback.Loki4jAppender">
       <http>
         <url>${lokiUrl}</url>
+        <connectTimeoutMs>2000</connectTimeoutMs>
+        <readTimeoutMs>3000</readTimeoutMs>
+        <retryMaxAttempts>3</retryMaxAttempts>
+        <connectionTtlMs>10000</connectionTtlMs>         <!-- 💡 연결 수명 제한 -->
+        <idleConnTimeoutSec>10</idleConnTimeoutSec>       <!-- 💡 유휴 연결 정리 시간 -->
+        <maxConnections>10</maxConnections>               <!-- 💡 최대 커넥션 수 제한 -->
       </http>
       <format>
         <label>
