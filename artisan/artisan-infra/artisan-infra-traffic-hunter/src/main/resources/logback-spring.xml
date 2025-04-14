@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration>
+<configuration debug="true">
 
 
   <!-- prod가 아닌 나머지 환경에서는 STDOUT 출력 -->
