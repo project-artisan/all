@@ -2,4 +2,12 @@ dependencies {
     implementation project(":artisan-core:artisan-core-web")
     implementation project(":artisan-core:artisan-core-default")
     implementation project(":artisan-domain:artisan-core-domain")
+
+
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
+
+
+    testImplementation(testFixtures(project(":artisan-domain:artisan-core-domain")))
+
+    testFixturesImplementation(testFixtures(project(":artisan-domain:artisan-core-domain")))
 }

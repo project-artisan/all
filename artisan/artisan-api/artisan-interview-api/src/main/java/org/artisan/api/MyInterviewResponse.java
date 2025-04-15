@@ -3,6 +3,7 @@ package org.artisan.api;
 import java.time.LocalDateTime;
 import org.artisan.domain.Interview;
 import org.artisan.domain.InterviewStatus;
+import org.artisan.payload.ScoreGroup;
 
 public record MyInterviewResponse(
         Long interviewId,
@@ -10,7 +11,9 @@ public record MyInterviewResponse(
         InterviewStatus interviewStatus,
         int questionCount,
         LocalDateTime createdAt,
-        LocalDateTime updatedAt
+        LocalDateTime updatedAt,
+        ScoreGroup scoreGroup
+
 ){
     public static MyInterviewResponse from(Interview interview) {
         return new MyInterviewResponse(
@@ -19,7 +22,8 @@ public record MyInterviewResponse(
                 interview.getProgress().getStatus(),
                 interview.getProgress().getSize(),
                 interview.getCreatedAt(),
-                interview.getUpdatedAt()
+                interview.getUpdatedAt(),
+                ScoreGroup.from(interview.getScoreGroup())
         );
     }
 }

@@ -62,6 +62,7 @@ public class InterviewService {
         return interview;
     }
 
+    // 대기열 없는 제출 시스템
     @Nullable
     public TailQuestion submit(
             User user,

@@ -89,10 +89,10 @@ public class InterviewQuestion extends BaseEntity {
     @Nullable
     public TailQuestion submit(Answer answer, AIFeedback aiFeedback) {
         this.answer = answer;
-        switch (answer.state()){
-            case COMPLETE -> this.aiFeedback = aiFeedback;
-            case PASS, PROGRESS -> {}
-            default -> throw new UnsupportedOperationException();
+        this.aiFeedback = aiFeedback;
+
+        if(answer.state() == AnswerState.PROGRESS) {
+            return null;
         }
 
         return createTailQuestion(aiFeedback);

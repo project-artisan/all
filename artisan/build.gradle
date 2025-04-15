@@ -3,6 +3,7 @@ plugins {
     id 'java'
     // api 의존성 사용을 위해
     id 'java-library'
+    id 'java-test-fixtures'
     id 'org.springframework.boot' version '3.3.2'
     id 'io.spring.dependency-management' version '1.1.7'
 }
@@ -27,6 +28,10 @@ allprojects {
         mavenCentral()
         maven { url 'https://repo.spring.io/milestone' }
         maven { url 'https://repo.spring.io/snapshot' }
+        maven {
+            name = 'Central Portal Snapshots'
+            url = 'https://central.sonatype.com/repository/maven-snapshots/'
+        }
     }
 
 
@@ -39,8 +44,9 @@ allprojects {
 subprojects {
     apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'java-test-fixtures'
 
-    bootJar.enabled= true
+    bootJar.enabled = true
     jar.enabled = true
     dependencies {
 

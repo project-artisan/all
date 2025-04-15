@@ -17,4 +17,8 @@ public record AIFeedback(
         List<String> referenceLinks
 
 ) {
+
+    public static AIFeedback empty(){
+        return new AIFeedback("", "", 0, List.of());
+    }
 }

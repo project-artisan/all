@@ -18,6 +18,7 @@ include 'artisan-infra:artisan-external-client'
 include 'artisan-infra:artisan-ai-client'
 include 'artisan-infra:artisan-infra-traffic-hunter'
 include 'artisan-infra:artisan-s3-client'
+include 'artisan-infra:artisan-discord-manager'
 
 include 'artisan-batch:artisan-techblog-batch'
 include 'artisan-batch:artisan-drrr-utility-batch'
