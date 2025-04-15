@@ -3,7 +3,9 @@ dependencies {
     implementation project(":artisan-api:artisan-drrr-api")
     implementation project(":artisan-api:artisan-interview-api")
 
-
     implementation project(":artisan-infra:artisan-docs")
     implementation project(":artisan-infra:artisan-infra-traffic-hunter")
+    implementation project(":artisan-infra:artisan-discord-manager")
+
+    implementation "io.awspring.cloud:spring-cloud-aws-starter-secrets-manager:3.3.0"
 }

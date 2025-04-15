@@ -6,6 +6,7 @@ import org.artisan.ai.client.AIClient;
 import org.artisan.ai.client.AiFeedbackRequest;
 import org.artisan.core.User;
 import org.artisan.domain.AIFeedback;
+import org.artisan.domain.AnswerState;
 import org.artisan.domain.InterviewQuestionRepository;
 import org.artisan.domain.TailQuestion;
 import org.artisan.domain.TailQuestionRepository;
@@ -33,7 +34,12 @@ public class FeedbackService {
     public TailQuestion submit(User user, Long interviewId, InterviewSubmitRequest request){
         var interviewQuestion = interviewQuestionRepository.getById(request.interviewQuestionId());
         var question = interviewQuestion.getQuestion().getMetadata().content();
+        var answer = request.toAnswer();
 
+
+        if(answer.state() == AnswerState.PASS) {
+            return interviewService.submit(user, interviewId, answer, AIFeedback.empty());
+        }
 
         var feedbackResponse = aiClient.execute(new AiFeedbackRequest(
                 question,
@@ -49,17 +55,23 @@ public class FeedbackService {
         );
 
 
-        return interviewService.submit(user, interviewId, request.toAnswer(), feedback);
+        return interviewService.submit(user, interviewId, answer, feedback);
     }
 
     public TailQuestion submit(User user, Long interviewQuestionId, TailQuestionSubmitRequest request) {
         var tailQuestion = tailQuestionRepository.getByIdAndMemberId(request.tailQuestionId(), user.id());
         var question = tailQuestion.getQuestion();
+        var answer = request.toAnswer();
+
+        if(answer.state() == AnswerState.PASS) {
+            return tailQuestionService.submit(user, interviewQuestionId, answer, AIFeedback.empty());
+        }
 
         var feedbackResponse = aiClient.execute(new AiFeedbackRequest(
                 question,
                 request.answerContent()
         ));
+
 
         var feedback = new AIFeedback(
                 feedbackResponse.tailQuestion(),
@@ -68,7 +80,7 @@ public class FeedbackService {
                 feedbackResponse.referenceLinks()
         );
 
-        return tailQuestionService.submit(user, interviewQuestionId, request.toAnswer(), feedback);
+        return tailQuestionService.submit(user, interviewQuestionId, answer, feedback);
     }
 
     public void submit(User user, InterviewQuestionSubmitRequest request) {
