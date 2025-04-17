@@ -21,6 +21,9 @@ spring:
       local-dev: local-dev
       prod: prod
       stage: stage
+  threads:
+    virtual:
+      enabled: true
 
 
 
